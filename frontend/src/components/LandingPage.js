@@ -1,5 +1,6 @@
 // src/components/LandingPage.js
 import React from 'react';
+import WorldMap from './WorldMap';
 import './LandingPage.css';
 
 const LandingPage = () => (
@@ -10,8 +11,23 @@ const LandingPage = () => (
         alt='Hero' 
         className='hero-image' 
       />
-      <h1>Welcome to the Automated Donation Platform</h1>
-      <p>Empowering school-going girls in Sub-Saharan Africa with essential resources.</p>
+      <div className='hero-overlay'>
+        <h1>Help us provide sanitary towels, clean water, and sanitation facilities to school-going girls</h1>
+        <div className='donation-form'>
+          <div className='form-group'>
+            <label htmlFor='donation-type'>Donation Type</label>
+            <select id='donation-type'>
+              <option value='once'>Once</option>
+              <option value='monthly'>Monthly</option>
+            </select>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='donation-amount'>Amount</label>
+            <input type='number' id='donation-amount' placeholder='Enter amount' />
+          </div>
+          <button type='submit'>Donate</button>
+        </div>
+      </div>
     </header>
     
     <section className='charities-section'>
@@ -52,7 +68,17 @@ const LandingPage = () => (
     
     <section className='about-section'>
       <h2>About Us</h2>
-      <p>Our platform is dedicated to supporting school-going girls in Sub-Saharan Africa by providing sanitary towels, clean water, and sanitation facilities. We partner with trusted charities to ensure that your donations make a real difference in the lives of these young girls, helping them stay in school and achieve their dreams.</p>
+      <div className='about-content'>
+        <div className='about-text'>
+          <p>In many Sub-Saharan countries, school-going girls miss out on education due to lack of sanitary towels and lack of proper sanitary facilities. Our platform aims to address this issue by enabling easy and regular donations to charities working on this cause.</p>
+        </div>
+        <div className='about-image'>
+          <img 
+            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_KZrd0akrx3gxDbL2Xcc9bEsJAO5Kb-btDQ&s' 
+            alt='About Us' 
+          />
+        </div>
+      </div>
       
       <div className='beneficiary-story'>
         <h3>Beneficiary Story</h3>
@@ -68,30 +94,34 @@ const LandingPage = () => (
         </div>
       </div>
     </section>
+
+    <section className='world-map-section'>
+      <h2>Donation Impact</h2>
+      <WorldMap />
+    </section>
     
     <section className='contact-section'>
       <h2>Contact Us</h2>
-      <form className='contact-form'>
-        <div className='form-group'>
-          <label htmlFor='name'>Name</label>
-          <input type='text' id='name' name='name' required />
+      <div className='contact-info'>
+        <h3>Get in Touch</h3>
+        <ul>
+          <li><strong>Phone:</strong> +123 456 7890</li>
+          <li><strong>Email:</strong> <a href='mailto:automateddonation@gmail.com'>automateddonation@gmail.com</a></li>
+        </ul>
+        <div className='social-links'>
+          <a href='https://facebook.com' target='_blank' rel='noopener noreferrer'>
+            <img src='https://cdn-icons-png.flaticon.com/128/733/733547.png' alt='Facebook' className='social-icon' />
+          </a>
+          <a href='https://twitter.com' target='_blank' rel='noopener noreferrer'>
+            <img src='https://cdn-icons-png.flaticon.com/128/733/733579.png' alt='Twitter' className='social-icon' />
+          </a>
+          <a href='https://instagram.com' target='_blank' rel='noopener noreferrer'>
+            <img src='https://cdn-icons-png.flaticon.com/128/733/733558.png' alt='Instagram' className='social-icon' />
+          </a>
+          <a href='https://linkedin.com' target='_blank' rel='noopener noreferrer'>
+            <img src='https://cdn-icons-png.flaticon.com/128/733/733561.png' alt='LinkedIn' className='social-icon' />
+          </a>
         </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
-          <input type='email' id='email' name='email' required />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='message'>Message</label>
-          <textarea id='message' name='message' rows='4' required></textarea>
-        </div>
-        <button type='submit'>Send Message</button>
-      </form>
-      <div className='subscription-section'>
-        <h3>Subscribe to Our Newsletter</h3>
-        <form className='subscription-form'>
-          <input type='email' placeholder='Enter your email' required />
-          <button type='submit'>Subscribe</button>
-        </form>
       </div>
     </section>
   </div>

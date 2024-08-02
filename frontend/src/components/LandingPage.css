@@ -1,92 +1,135 @@
 /* src/components/LandingPage.css */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 .landing-page {
-  flex: 1;
-  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .hero-section {
-  background-color: #f4f4f4;
-  padding: 40px;
+  position: relative;
   text-align: center;
+  color: white;
 }
 
 .hero-image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  opacity: 0.8;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7); /* Darker overlay for better text visibility */
+  padding: 20px;
+}
+
+.hero-overlay h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  color: #fff; /* Ensure the text color is white */
+}
+
+.donation-form {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
   border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  text-align: left;
 }
 
-.hero-section h1 {
-  margin-top: 20px;
-  font-size: 2.5rem;
+.donation-form .form-group {
+  margin-bottom: 15px;
 }
 
-.charities-section, .about-section, .contact-section {
-  margin: 20px 0;
+.donation-form label {
+  display: block;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.donation-form select,
+.donation-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.donation-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.donation-form button:hover {
+  background-color: #45a049;
+}
+
+/* Additional CSS for other sections */
+.charities-section {
+  padding: 40px 20px;
+  text-align: center;
 }
 
 .charities-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .charity-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #fff;
   padding: 20px;
-  text-align: center;
-  width: 250px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .charity-image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
 .donate-button {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
+  display: block;
+  width: 80%; /* Reduce the width of the donate button */
+  padding: 8px; /* Reduce padding */
+  background-color: #4CAF50;
   color: white;
-  border: none;
-  border-radius: 4px;
+  text-align: center;
+  border-radius: 5px;
   text-decoration: none;
+  margin: 10px auto 0; /* Center the button */
 }
 
 .donate-button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
 .about-section {
-  background-color: #f9f9f9;
-  padding: 20px;
-  text-align: center;
+  padding: 40px 20px;
 }
 
 .beneficiary-story {
   margin-top: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .story-content {
@@ -96,85 +139,93 @@ body {
 }
 
 .story-image {
-  max-width: 150px;
+  width: 150px;
   height: auto;
   border-radius: 8px;
 }
 
-.story-text {
-  text-align: left;
-}
-
 .contact-section {
-  background-color: #e9ecef;
-  padding: 20px;
-}
-
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.contact-form .form-group {
-  margin-bottom: 15px;
-}
-
-.contact-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.contact-form input, .contact-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.contact-form button {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.contact-form button:hover {
-  background-color: #0056b3;
-}
-
-.subscription-section {
-  margin-top: 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
+.contact-form,
 .subscription-form {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.contact-form .form-group,
+.subscription-form .form-group {
+  margin-bottom: 15px;
+}
+
+.contact-form label,
+.subscription-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form textarea,
+.subscription-form input,
+.subscription-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.subscription-section h3 {
+  margin-bottom: 10px;
 }
 
 .subscription-form input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 .subscription-form button {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
+  background-color: #4CAF50;
   color: white;
+  border: none;
   cursor: pointer;
 }
 
 .subscription-form button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
+
+.about-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9; /* Optional: Light background color for contrast */
+}
+
+.about-content {
+  display: flex;
+  align-items: left; /* Center items vertically */
+  justify-content: space-between; /* Space between text and image */
+  gap: 20px; /* Space between text and image */
+}
+
+.about-text {
+  flex: 1;
+  max-width: 50%; /* Limit text width */
+  margin-right: 20px; /* Add margin to the right for better spacing */
+}
+
+.about-image {
+  flex: 1;
+  max-width: 40%; /* Adjust to minimize image size */
+}
+
+.about-image img {
+  width: 100%; /* Ensure the image takes full width of its container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Rounded corners for the image */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+  max-height: 300px; /* Optional: Limit the height of the image */
+}
+
