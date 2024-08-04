@@ -8,23 +8,29 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('donor'); // default role
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/register', { email, password, role });
+      console.log(response.data); // Log response for debugging
       if (response.data.success) {
         navigate('/login'); // Redirect to login page
+      } else {
+        setError('Registration failed. Please try again.');
       }
     } catch (error) {
       console.error('Registration failed', error);
+      setError('An error occurred during registration. Please try again.');
     }
   };
 
   return (
     <div className='register-page'>
       <h1>Register</h1>
+      {error && <p className='error'>{error}</p>}
       <form onSubmit={handleRegister}>
         <div className='form-group'>
           <label htmlFor='email'>Email:</label>
