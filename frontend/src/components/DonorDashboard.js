@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-// src/components/DonorDashboard.js
-import React from 'react';
-import './DonorDashboard.css';
-
-const DonorDashboard = () => (
-  <div className='donor-dashboard'>
-    <h1>Donor Dashboard</h1>
-    <p>Welcome, Donor! Here you can manage your donations and view your donation history.</p>
-    {/* Additional donor features */}
-  </div>
-);
-=======
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./DonorDashboard.css";
@@ -49,6 +36,5 @@ const DonorDashboard = ({ user }) => {
     </div>
   );
 };
->>>>>>> f332470 (dahsboard, authentication and admin)
 
 export default DonorDashboard;
