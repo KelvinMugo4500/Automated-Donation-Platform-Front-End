@@ -1,0 +1,78 @@
+
+.charity-container {
+    border: 1px solid black;
+    height: 400px;
+    width: 800px;
+    
+    margin: 0 auto;
+    padding-top: 6rem;
+  }
+h3 {
+    position: fixed;
+    
+    width: 600px;
+    
+    z-index: 400; /* Ensures the h3 stays on top of other elements */
+  }
+
+.inputsContainer{
+    height: 300px;
+    width: 800px;
+    overflow-y: auto;
+    margin: 0 auto;
+    margin-top: 5rem;
+    padding-top: 1rem;
+    border: 3px solid black;
+}
+.hidden {
+    visibility: hidden;
+  }
+
+
+.charity-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    
+       
+}
+
+.form-label {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.form-input {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 300px;
+    overflow-y: true;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.loading {
+    font-style: italic;
+    color: gray;
+    margin-top: 10px;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+}
