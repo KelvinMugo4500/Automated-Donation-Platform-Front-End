@@ -1,9 +1,74 @@
-/* src/components/AdminDashboard.css */
+/* AdminDashboard.css */
+.grid-container{
+  margin-top: 5rem;
+}
 .admin-dashboard {
-    padding: 20px;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.approved-charities {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.pending-requests {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.button-approve {
   
-  .admin-dashboard h1 {
-    text-align: center;
-  }
-  
+
+  background-color: lightgreen;
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+.button-donations {
+  background-color: lightgreen;
+  color: rgb(0, 0, 0);
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  width: 10rem;
+}
+.button-total-amount {
+  width: 10rem;
+  background-color: lightgreen;
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+.button-delete {
+  width: 10rem;
+  background-color: rgb(236, 102, 102);
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-review {
+  background-color: #f0ad4e;
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-reject {
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
