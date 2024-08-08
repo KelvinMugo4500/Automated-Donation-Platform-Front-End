@@ -1,9 +1,76 @@
-/* src/components/CharityDashboard.css */
+/* CharityDashboard.css */
+
 .charity-dashboard {
-    padding: 20px;
-  }
-  
-  .charity-dashboard h1 {
-    text-align: center;
-  }
-  
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.charity-dashboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.charity-details {
+  margin-bottom: 20px;
+}
+
+.charity-details h3 {
+  color: #2c3e50;
+}
+
+.charity-details p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.donations-section,
+.beneficiaries-section,
+.inventory-section {
+  margin-bottom: 20px;
+}
+
+.donations-section h3,
+.beneficiaries-section h3,
+.inventory-section h3 {
+  color: #2c3e50;
+}
+
+.donors-list,
+.anonymous-donations ul,
+.beneficiaries-section ul,
+.inventory-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.donors-list li,
+.anonymous-donations p,
+.beneficiaries-section li,
+.inventory-section li {
+  background-color: #fff;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-story-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.create-story-link:hover {
+  background-color: #2980b9;
+}

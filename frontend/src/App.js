@@ -5,7 +5,6 @@ import {
   Route,
   Routes,
   Navigate,
-  Link,
 } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/LoginPage";
@@ -17,6 +16,8 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
+import CharityDashboard from "./components/CharityDashboard";
+
 const App = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,22 +46,19 @@ const App = () => {
     <Router>
       <NavBar user={user} setUser={setUser} /> {/* NavBar always visible */}
       <Routes>
-        {user ? ( // Routes accessible when user is logged in
+        {/* Routes accessible when user is logged in */}
+        {user ? (
           <>
             <Route path="/" element={<LandingPage />} />
             <Route path="/charities" element={<CharityList />} />
-            <Route
-              path="/donate"
-              element={<DonatePage charity="Selected Charity Name" />}
-            />
-            <Route
-              path="/donor_dashboard"
-              element={<DonorDashboard user={user} />}
-            />
-            <Route
-              path="/admin_dashboard"
-              element={<AdminDashboard user={user} />}
-            />
+            <Route path="/donate" element={<DonatePage charity="Selected Charity Name" />} />
+            <Route path="/donor_dashboard" element={<DonorDashboard user={user} />} />
+            {user.role === "admin" && (
+              <Route path="/admin_dashboard" element={<AdminDashboard user={user} />} />
+            )}
+            {user.role === "charity" && (
+              <Route path="/charity_dashboard" element={<CharityDashboard user={user} />} />
+            )}
           </>
         ) : (
           // Routes accessible when user is NOT logged in
@@ -70,11 +68,9 @@ const App = () => {
           </>
         )}
         {/* Common routes accessible regardless of login status */}
-        <Route path="/" element={<LandingPage />} />{" "}
-        {/* Landing page is always accessible */}
-        <Route path="/charities" element={<CharityList />} />{" "}
+        <Route path="/" element={<LandingPage />} /> {/* Landing page is always accessible */}
+        <Route path="/charities" element={<CharityList />} /> {/* Charity list is always accessible */}
         <Route path="/create_charity" element={<CreateCharity />} />
-        {/* Charity list is always accessible */}
         {/* Redirect to landing page for unknown routes */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
@@ -84,7 +80,3 @@ const App = () => {
 };
 
 export default App;
-/* In this code snippet, I've introduced a loading 
-state isLoading to handle the initial loading state
-while the user session is being checked.
-Once the check is complete, it will conditionally render either the LoginPage or the rest of the routes based on the presence of a user session. This way, useNavigate is only used within the Router where it's appropriate. */
