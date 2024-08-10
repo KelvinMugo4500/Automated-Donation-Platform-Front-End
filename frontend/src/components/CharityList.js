@@ -8,9 +8,7 @@ const CharityList = () => {
   const [charities, setCharities] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        "https://automated-donation-platform-backend-2.onrender.com/charities"
-      );
+      const response = await axios.get("/charities");
       setCharities(response.data);
     };
 

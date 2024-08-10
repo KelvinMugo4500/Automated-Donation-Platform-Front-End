@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import "./CharityCard";
+import "./CharityDashboard.js";
+import { Link } from "react-router-dom";
+import CharityDashboard from "./CharityDashboard.js";
 
 const AdminDashboard = ({ user }) => {
+  const [charities, setCharities] = useState([]);
   const [approvedCharities, setApprovedCharities] = useState([]);
   const [pendingRequests, setPendingRequests] = useState([]);
+  const [selectedCharityId, setSelectedCharityId] = useState(null);
 
   const postData = async (id, endpoint) => {
     try {
-      const response = await fetch(`/${endpoint}/${id}`, { method: "POST" });
+      const response = await fetch(`/${endpoint}/${id}`, {
+        method: "POST",
+      });
+      const data = await response.json();
+
+      refreshCharities();
+      console.log(`/${endpoint}/${id}`);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getData = async (id, endpoint) => {
+    try {
+      const response = await fetch(`/${endpoint}/${id}`, { method: "GET" });
       const data = await response.json();
 
       console.log(`/${endpoint}/${id}`);
@@ -16,19 +37,44 @@ const AdminDashboard = ({ user }) => {
       console.error(error);
     }
   };
+
+  const deleteData = async (id, endpoint) => {
+    try {
+      const response = await fetch(`/${endpoint}/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+
+      refreshCharities();
+      console.log(`/${endpoint}/${id}`);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const refreshCharities = async () => {
+    try {
+      const response = await fetch("/charities");
+      const charities = await response.json();
+
+      const approved = charities.filter(
+        (charity) => charity.status === "approved"
+      );
+      const pending = charities.filter(
+        (charity) => charity.status === "pending"
+      );
+
+      setApprovedCharities(approved);
+      setPendingRequests(pending);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    fetch("/charities")
-      .then((response) => response.json())
-      .then((data) => {
-        const approved = data.filter(
-          (charity) => charity.status === "approved"
-        );
-        const pending = data.filter((charity) => charity.status === "pending");
-        setApprovedCharities(approved);
-        setPendingRequests(pending);
-      })
-      .catch((error) => console.error(error));
-  }, [postData, approvedCharities]);
+    refreshCharities();
+  }, []);
 
   const handleReview = (id) => {
     postData(id, "review");
@@ -41,6 +87,24 @@ const AdminDashboard = ({ user }) => {
   const handleReject = (id) => {
     postData(id, "reject");
   };
+  //functions transferred to the charitydashboard component
+
+  const handleDonations = (id) => {
+    getData(id, "donations");
+  };
+
+  const handleTotalAmount = (id) => {
+    getData(id, "total");
+  };
+
+  const handleDelete = (id) => {
+    deleteData(id, "delete");
+  };
+
+  const handleCharityClick = (charityId) => {
+    setSelectedCharityId(charityId);
+  };
+
   return (
     <div className="grid-container">
       <div className="admin-dashboard">
@@ -49,16 +113,20 @@ const AdminDashboard = ({ user }) => {
           <h4>
             {user.username}! Here you can manage all the approved charities.
           </h4>
-          {approvedCharities.map((charity) => (
-            <div key={charity.id}>
-              <p>{charity.name}</p>
-              <button className="button-container">
-                <button className="button-donations">View Donations</button>
-                <button className="button-delete">Delete</button>
-                <button className="button-total-amount">View Amount</button>
-              </button>
-            </div>
-          ))}
+          <div className="charityList">
+            {approvedCharities.map((charity) => (
+              <div
+                key={charity.id}
+                className="charityItem"
+                onClick={() => handleCharityClick(charity.id)}
+              >
+                {charity.name}
+              </div>
+            ))}
+          </div>
+          {selectedCharityId && (
+            <CharityDashboard charityId={selectedCharityId} />
+          )}
         </div>
 
         <div className="pending-requests">
@@ -72,12 +140,14 @@ const AdminDashboard = ({ user }) => {
             <div key={charity.id}>
               <p>{charity.name}</p>
               <div className="button-container">
-                <button
+                <div
                   className="button-review"
                   onClick={() => handleReview(charity.id)}
                 >
-                  Review
-                </button>
+                  <Link to="/charitydashboard" className="button-review">
+                    Review
+                  </Link>
+                </div>
                 <button
                   className="button-approve"
                   onClick={() => handleApprove(charity.id)}

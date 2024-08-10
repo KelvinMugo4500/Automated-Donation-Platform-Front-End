@@ -17,6 +17,8 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
+import CharityDashboard from "./components/CharityDashboard";
+
 const App = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +62,10 @@ const App = () => {
             <Route
               path="/admin_dashboard"
               element={<AdminDashboard user={user} />}
+            />
+            <Route
+              path="/charitydashboard"
+              element={<CharityDashboard user={user} />}
             />
           </>
         ) : (
