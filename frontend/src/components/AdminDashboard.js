@@ -125,7 +125,7 @@ const AdminDashboard = ({ user }) => {
             ))}
           </div>
           {selectedCharityId && (
-            <CharityDashboard charityId={selectedCharityId} />
+            <CharityDashboard charityId={selectedCharityId} user={user} />
           )}
         </div>
 
