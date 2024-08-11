@@ -157,6 +157,9 @@ const CharityDashboard = ({ user, charityId }) => {
   if (!charity) {
     return <div></div>;
   }
+  if (loading) {
+    return <div>Request Processing...</div>;
+  }
 
   return (
     <>
