@@ -80,27 +80,6 @@ const AdminDashboard = ({ user }) => {
     postData(id, "review");
   };
 
-  const handleApprove = (id) => {
-    postData(id, "approve");
-  };
-
-  const handleReject = (id) => {
-    postData(id, "reject");
-  };
-  //functions transferred to the charitydashboard component
-
-  const handleDonations = (id) => {
-    getData(id, "donations");
-  };
-
-  const handleTotalAmount = (id) => {
-    getData(id, "total");
-  };
-
-  const handleDelete = (id) => {
-    deleteData(id, "delete");
-  };
-
   const handleCharityClick = (charityId) => {
     setSelectedCharityId(charityId);
   };
@@ -110,9 +89,7 @@ const AdminDashboard = ({ user }) => {
       <div className="admin-dashboard">
         <div className="approved-charities">
           <h2>Approved Charities</h2>
-          <h4>
-            {user.username}! Here you can manage all the approved charities.
-          </h4>
+          <h4>Hello {user.username}! click a charity to take action.</h4>
           <div className="charityList">
             {approvedCharities.map((charity) => (
               <div
@@ -137,30 +114,11 @@ const AdminDashboard = ({ user }) => {
             them being a charity.
           </h4>
           {pendingRequests.map((charity) => (
-            <div key={charity.id}>
+            <div
+              key={charity.id}
+              onClick={() => handleCharityClick(charity.id)}
+            >
               <p>{charity.name}</p>
-              <div className="button-container">
-                <div
-                  className="button-review"
-                  onClick={() => handleReview(charity.id)}
-                >
-                  <Link to="/charitydashboard" className="button-review">
-                    Review
-                  </Link>
-                </div>
-                <button
-                  className="button-approve"
-                  onClick={() => handleApprove(charity.id)}
-                >
-                  Approve
-                </button>
-                <button
-                  className="button-reject"
-                  onClick={() => handleReject(charity.id)}
-                >
-                  Reject
-                </button>
-              </div>
             </div>
           ))}
         </div>
