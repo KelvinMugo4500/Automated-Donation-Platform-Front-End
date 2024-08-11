@@ -68,7 +68,7 @@ const NavBar = ({ user, setUser }) => {
             </Link>
           </li>
           <li className="navbar-item">
-            <Link to="/charity_list" className="navbar-link">
+            <Link to="/charities" className="navbar-link">
               Charity List
             </Link>
           </li>

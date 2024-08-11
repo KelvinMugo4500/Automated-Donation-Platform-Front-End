@@ -1,45 +1,34 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./CharityList.css";
 
 const CharityList = () => {
   const [charities, setCharities] = useState([]);
-  const [error, setError] = useState(null); // Added for error handling
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:5000/charities");
-        setCharities(response.data);
-      } catch (error) {
-        setError("Error fetching charities.");
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    fetch("/charities")
+      .then(response => response.json())
+      .then(data => {
+        const approvedCharities = data.filter(charity => charity.status === "approved");
+        setCharities(approvedCharities);
+      })
+      .catch(error => console.error("Error fetching charities:", error));
   }, []);
-
-  if (error) {
-    return <div>{error}</div>; // Display error if it occurs
-  }
 
   return (
     <div className="charity-list">
-      <h1>Available Charities</h1>
-      <ul>
-        {charities.length > 0 ? (
-          charities.map((charity) => (
-            <li key={charity.id}>
-              <h2>{charity.name}</h2>
-              <img src={charity.image} alt={charity.name} />
-              <p>{charity.description}</p>
-            </li>
-          ))
-        ) : (
-          <p>No charities available.</p>
-        )}
-      </ul>
+      <h2>Approved Charities</h2>
+      <div className="charity-cards">
+        {charities.map((charity) => (
+          <div key={charity.id} className="charity-card">
+            <img src={charity.image} alt={`${charity.name}`} className="charity-image" />
+            <h3 className="charity-name">{charity.name}</h3>
+            <p className="charity-description">{charity.description}</p>
+            <p className="charity-impact"><strong>Impact:</strong> {charity.impact}</p>
+            <p className="charity-goals"><strong>Goals:</strong> {charity.goals}</p>
+            <p className="charity-mission"><strong>Mission Statement:</strong> {charity.mission_statement}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

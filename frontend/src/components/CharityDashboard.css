@@ -1,76 +1,117 @@
-/* CharityDashboard.css */
-
-.charity-dashboard {
+.charity_dashboard {
   padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
 }
 
-.charity-dashboard h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.charity-details {
+.charity_dashboard h1 {
+  font-size: 2em;
   margin-bottom: 20px;
 }
 
-.charity-details h3 {
-  color: #2c3e50;
-}
-
-.charity-details p {
-  margin: 5px 0;
-  color: #555;
-}
-
-.donations-section,
-.beneficiaries-section,
-.inventory-section {
+.charity_dashboard p {
+  font-size: 1.2em;
   margin-bottom: 20px;
 }
 
-.donations-section h3,
-.beneficiaries-section h3,
-.inventory-section h3 {
-  color: #2c3e50;
-}
-
-.donors-list,
-.anonymous-donations ul,
-.beneficiaries-section ul,
-.inventory-section ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.donors-list li,
-.anonymous-donations p,
-.beneficiaries-section li,
-.inventory-section li {
-  background-color: #fff;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.create-story-link {
-  display: inline-block;
-  margin-top: 20px;
+.button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
   padding: 10px 20px;
-  background-color: #3498db;
-  color: #fff;
   text-align: center;
-  border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  display: inline-block;
+  font-size: 1em;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.create-story-link:hover {
-  background-color: #2980b9;
+.button:hover {
+  background-color: #45a049;
+}
+
+.charity_details, .donors, .beneficiaries, .stories {
+  margin-bottom: 30px;
+}
+
+.charity_details h2, .donors h2, .beneficiaries h2, .stories h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.charity_details img, .stories img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.donors h3, .beneficiaries h3, .stories h3 {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.total_amount {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.beneficiaries, .stories {
+  border-top: 2px solid #ddd;
+  padding-top: 20px;
+}
+
+.add_beneficiary, .edit_beneficiary, .add_story {
+  margin-top: 20px;
+}
+
+.add_beneficiary input, .edit_beneficiary input, .add_story input,
+.add_beneficiary textarea, .edit_beneficiary textarea, .add_story textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add_beneficiary button, .edit_beneficiary button, .add_story button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add_beneficiary button:hover, .edit_beneficiary button:hover, .add_story button:hover {
+  background-color: #45a049;
+}
+
+.beneficiaries div, .stories div {
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.beneficiaries div button {
+  background-color: #ffa500;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.beneficiaries div button:hover {
+  background-color: #ff8c00;
 }

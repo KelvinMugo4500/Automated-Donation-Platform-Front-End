@@ -17,6 +17,7 @@ import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
 import CharityDashboard from "./components/CharityDashboard";
+import CharityPending from "./components/CharityPending"; // Import CharityPending component
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -59,6 +60,8 @@ const App = () => {
             {user.role === "charity" && (
               <Route path="/charity_dashboard" element={<CharityDashboard user={user} />} />
             )}
+            {/* Add the route for the CharityPending component */}
+            <Route path="/charity_pending" element={<CharityPending />} />
           </>
         ) : (
           // Routes accessible when user is NOT logged in
