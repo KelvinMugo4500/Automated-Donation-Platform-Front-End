@@ -39,8 +39,8 @@ const LandingPage = () => {
           Our platform is dedicated to supporting school-going girls in
           Sub-Saharan Africa by providing sanitary towels, clean water, and
           sanitation facilities. We partner with trusted charities to ensure
-          that your donations make a real difference in the lives of these
-          young girls, helping them stay in school and achieve their dreams.
+          that your donations make a real difference in the lives of these young
+          girls, helping them stay in school and achieve their dreams.
         </p>
 
         <div className="beneficiary-story">

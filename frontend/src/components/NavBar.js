@@ -35,15 +35,19 @@ const NavBar = ({ user, setUser }) => {
                   </Link>
                 </li>
               )}
-              {isCharity && (
+              {!isAdmin && (
                 <li className="navbar-item">
-                  <Link to="/charity_dashboard" className="navbar-link">
-                    Charity Dashboard
+                  <Link to="/donor_dashboard" className="navbar-link">
+                    Donor Dashboard
                   </Link>
                 </li>
               )}
               <li className="navbar-item">
-                <Link to="/logout" className="navbar-link" onClick={handleLogoutClick}>
+                <Link
+                  to="/logout"
+                  className="navbar-link"
+                  onClick={handleLogoutClick}
+                >
                   Logout
                 </Link>
               </li>

@@ -52,13 +52,31 @@ const App = () => {
           <>
             <Route path="/" element={<LandingPage />} />
             <Route path="/charities" element={<CharityList />} />
-            <Route path="/donate" element={<DonatePage charity="Selected Charity Name" />} />
-            <Route path="/donor_dashboard" element={<DonorDashboard user={user} />} />
+            <Route
+              path="/donate"
+              element={<DonatePage charity="Selected Charity Name" />}
+            />
+            <Route
+              path="/donor_dashboard"
+              element={
+                <DonorDashboard
+                  user={user}
+                  donations={user.donations}
+                  setUser={setUser}
+                />
+              }
+            />
             {user.role === "admin" && (
-              <Route path="/admin_dashboard" element={<AdminDashboard user={user} />} />
+              <Route
+                path="/admin_dashboard"
+                element={<AdminDashboard user={user} />}
+              />
             )}
             {user.role === "charity" && (
-              <Route path="/charity_dashboard" element={<CharityDashboard user={user} />} />
+              <Route
+                path="/charity_dashboard"
+                element={<CharityDashboard user={user} />}
+              />
             )}
             {/* Add the route for the CharityPending component */}
             <Route path="/charity_pending" element={<CharityPending />} />
@@ -71,8 +89,10 @@ const App = () => {
           </>
         )}
         {/* Common routes accessible regardless of login status */}
-        <Route path="/" element={<LandingPage />} /> {/* Landing page is always accessible */}
-        <Route path="/charities" element={<CharityList />} /> {/* Charity list is always accessible */}
+        <Route path="/" element={<LandingPage />} />{" "}
+        {/* Landing page is always accessible */}
+        <Route path="/charities" element={<CharityList />} />{" "}
+        {/* Charity list is always accessible */}
         <Route path="/create_charity" element={<CreateCharity />} />
         {/* Redirect to landing page for unknown routes */}
         <Route path="*" element={<Navigate to="/" />} />

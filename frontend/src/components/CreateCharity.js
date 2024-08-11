@@ -51,11 +51,11 @@ const NewCharityForm = () => {
   return (
     <div className="charity-container">
       <form className="charity-form" onSubmit={handleSubmit}>
-        <h3>
+        <p>
           Fill out the following form and click the submit button at the bottom.
           You will have to wait for your application to be approved. Kindly
           check after 24 hours...
-        </h3>
+        </p>
 
         <div className="inputsContainer">
           <div className="label-and-input">

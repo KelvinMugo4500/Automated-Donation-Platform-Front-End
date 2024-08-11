@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./CharityDashboard.css";
 import { Link } from "react-router-dom";
-const CharityDashboard = ({ user, charityId }) => {
+const CharityDashboard = ({
+  user,
+  charityId,
+  approvedCharities,
+  setApprovedCharities,
+  pendingRequests,
+  setPendingRequests,
+}) => {
   const [charity, setCharity] = useState(null);
   const [password, setPassword] = useState("");
   const username = user.username;
@@ -16,10 +23,14 @@ const CharityDashboard = ({ user, charityId }) => {
   const handleDelete = (id) => {
     if (showDeleteConfirmation) {
       // Perform deletion logic here
-      console.log(username, password);
-      deleteData(id, "delete");
-      setShowDeleteConfirmation(false);
-      setCharity(null);
+      setLoading(true);
+
+      // Introduce a timeout to delay the execution
+      setTimeout(() => {
+        deleteData(id, "delete");
+        setShowDeleteConfirmation(false);
+        setCharity(null); // Clear loading state
+      }, 10000); // 1000 milliseconds (1 second) delay
     } else {
       setShowDeleteConfirmation(true);
     }
@@ -130,13 +141,35 @@ const CharityDashboard = ({ user, charityId }) => {
         method: "POST",
       });
       const data = await response.json();
-
-      console.log(`/${endpoint}/${id}`);
-      console.log(data);
+      setCharity(null);
+      refreshCharities();
+      getData(id, "charity");
     } catch (error) {
       console.error(error);
     }
   };
+  const refreshCharities = async () => {
+    try {
+      const response = await fetch("/charities");
+      const charities = await response.json();
+
+      const approved = charities.filter(
+        (charity) => charity.status === "approved"
+      );
+      const pending = charities.filter(
+        (charity) => charity.status === "pending"
+      );
+
+      setApprovedCharities(approved);
+      setPendingRequests(pending);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    refreshCharities();
+  }, []);
   const handleApprove = (id) => {
     setLoading(true);
 
@@ -144,10 +177,8 @@ const CharityDashboard = ({ user, charityId }) => {
     setTimeout(() => {
       postData(id, "approve");
       setCharity(null);
-      getData(id, "charities");
-
       setLoading(false); // Clear loading state
-    }, 1000); // 1000 milliseconds (1 second) delay
+    }, 10000); // 1000 milliseconds (1 second) delay
   };
 
   const handleReject = (id) => {
@@ -158,7 +189,11 @@ const CharityDashboard = ({ user, charityId }) => {
     return <div></div>;
   }
   if (loading) {
-    return <div>Request Processing...</div>;
+    return (
+      <div className="loadingIndicator">
+        Request Processing...<p>This might take upto 3 minutes</p>
+      </div>
+    );
   }
 
   return (
