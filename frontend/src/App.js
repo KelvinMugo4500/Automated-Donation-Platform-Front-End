@@ -16,10 +16,8 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
-import CharityDashboard1 from "./components/CharityDashboard1";
-import CharityPending from "./components/CharityPending"; // Import CharityPending component
-
 import CharityDashboard from "./components/CharityDashboard";
+import CharityPending from "./components/CharityPending"; // Import CharityPending component
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -54,18 +52,16 @@ const App = () => {
           <>
             <Route path="/" element={<LandingPage />} />
             <Route path="/charities" element={<CharityList />} />
-            <Route
-              path="/donate"
-              element={<DonatePage charity="Selected Charity Name" />}
-            />
-            <Route
-              path="/donor_dashboard"
-              element={<DonorDashboard user={user} />}
-            />
-            <Route
-              path="/admin_dashboard"
-              element={<AdminDashboard user={user} />}
-            />
+            <Route path="/donate" element={<DonatePage charity="Selected Charity Name" />} />
+            <Route path="/donor_dashboard" element={<DonorDashboard user={user} />} />
+            {user.role === "admin" && (
+              <Route path="/admin_dashboard" element={<AdminDashboard user={user} />} />
+            )}
+            {user.role === "charity" && (
+              <Route path="/charity_dashboard" element={<CharityDashboard user={user} />} />
+            )}
+            {/* Add the route for the CharityPending component */}
+            <Route path="/charity_pending" element={<CharityPending />} />
           </>
         ) : (
           // Routes accessible when user is NOT logged in
