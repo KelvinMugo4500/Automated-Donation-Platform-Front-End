@@ -17,7 +17,7 @@ const LandingPage = () => (
             alt="Save the Children"
             className="charity-image"
           />
-          <h3>Save the Children</h3>
+          <h1>Save the Children</h1>
           <p>
             Save the Children provides education and emergency aid to children
             in need around the world, including school-going girls in
@@ -33,7 +33,7 @@ const LandingPage = () => (
             alt="Plan International"
             className="charity-image"
           />
-          <h3>Plan International</h3>
+          <h1>Plan International</h1>
           <p>
             Plan International focuses on advancing children's rights and
             equality for girls, with programs in Sub-Saharan Africa to support
@@ -49,7 +49,7 @@ const LandingPage = () => (
             alt="Girls Not Brides"
             className="charity-image"
           />
-          <h3>Girls Not Brides</h3>
+          <h1>Girls Not Brides</h1>
           <p>
             Girls Not Brides is dedicated to ending child marriage and
             supporting girls' education in Sub-Saharan Africa through advocacy

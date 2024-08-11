@@ -36,6 +36,13 @@ const NavBar = ({ user, setUser }) => {
                   </Link>
                 </li>
               )}
+              {!isAdmin && (
+                <li className="navbar-item">
+                  <Link to="/donor_dashboard" className="navbar-link">
+                    Donor Dashboard
+                  </Link>
+                </li>
+              )}
               <li className="navbar-item">
                 <Link
                   to="/logout"

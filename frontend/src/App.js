@@ -57,7 +57,13 @@ const App = () => {
             />
             <Route
               path="/donor_dashboard"
-              element={<DonorDashboard user={user} />}
+              element={
+                <DonorDashboard
+                  user={user}
+                  donations={user.donations}
+                  setUser={setUser}
+                />
+              }
             />
             <Route
               path="/admin_dashboard"
