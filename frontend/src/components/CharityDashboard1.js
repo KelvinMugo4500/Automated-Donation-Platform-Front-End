@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./CharityDashboard.css";
+import "./CharityDashboard1.css";
 
-const CharityDashboard = ({ user }) => {
+const CharityDashboard1 = ({ user }) => {
   const [charityDetails, setCharityDetails] = useState(null);
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [stories, setStories] = useState([]);
@@ -246,4 +246,4 @@ const CharityDashboard = ({ user }) => {
   );
 };
 
-export default CharityDashboard;
+export default CharityDashboard1;

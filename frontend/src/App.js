@@ -16,7 +16,7 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
-import CharityDashboard from "./components/CharityDashboard";
+import CharityDashboard1 from "./components/CharityDashboard1";
 import CharityPending from "./components/CharityPending"; // Import CharityPending component
 
 const App = () => {
@@ -58,7 +58,7 @@ const App = () => {
               <Route path="/admin_dashboard" element={<AdminDashboard user={user} />} />
             )}
             {user.role === "charity" && (
-              <Route path="/charity_dashboard" element={<CharityDashboard user={user} />} />
+              <Route path="/charity_dashboard" element={<CharityDashboard1 user={user} />} />
             )}
             {/* Add the route for the CharityPending component */}
             <Route path="/charity_pending" element={<CharityPending />} />
