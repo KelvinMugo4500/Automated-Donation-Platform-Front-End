@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
 import "./LoginPage.css";
 
 const LoginPage = ({ setUser }) => {
@@ -23,7 +22,27 @@ const LoginPage = ({ setUser }) => {
       if (response.ok) {
         const data = await response.json();
         setUser(data);
-        navigate("/donor_dashboard"); // Redirect to donor-dashboard page
+
+        // Redirect based on user role
+        switch (data.role) {
+          case "donor":
+            navigate("/donor_dashboard");
+            break;
+          case "charity":
+            navigate("/charity_dashboard");
+            break;
+          case "admin":
+            navigate("/admin_dashboard");
+            break;
+          default:
+            console.error("Unknown role:", data.role);
+            // Optionally redirect to a default page or show an error
+            navigate("/login");
+        }
+      } else {
+        // Handle login failure
+        console.error("Login failed");
+        // Optionally show an error message to the user
       }
     } catch (error) {
       console.error("Login failed", error);

@@ -1,0 +1,117 @@
+.charity_dashboard {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.charity_dashboard h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.charity_dashboard p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.charity_details, .donors, .beneficiaries, .stories {
+  margin-bottom: 30px;
+}
+
+.charity_details h2, .donors h2, .beneficiaries h2, .stories h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.charity_details img, .stories img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.donors h3, .beneficiaries h3, .stories h3 {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.total_amount {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.beneficiaries, .stories {
+  border-top: 2px solid #ddd;
+  padding-top: 20px;
+}
+
+.add_beneficiary, .edit_beneficiary, .add_story {
+  margin-top: 20px;
+}
+
+.add_beneficiary input, .edit_beneficiary input, .add_story input,
+.add_beneficiary textarea, .edit_beneficiary textarea, .add_story textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add_beneficiary button, .edit_beneficiary button, .add_story button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add_beneficiary button:hover, .edit_beneficiary button:hover, .add_story button:hover {
+  background-color: #45a049;
+}
+
+.beneficiaries div, .stories div {
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.beneficiaries div button {
+  background-color: #ffa500;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.beneficiaries div button:hover {
+  background-color: #ff8c00;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./CreateCharity.css";
 import { useNavigate } from "react-router-dom";
 
@@ -6,44 +6,48 @@ const NewCharityForm = () => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  const [impact, setImpact] = useState(""); // default role
+  const [impact, setImpact] = useState(""); 
   const [goals, setGoals] = useState("");
-  const [status, steStatus] = useState(""); //to be determined by the admin
   const [mission_statement, setMissionStatement] = useState("");
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setUser] = useState([]);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    //send request to the server to register a user
-    fetch("/charities", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        goals,
-        image,
-        mission_statement,
-        impact,
 
-        description,
-      }),
-    }).then((r) => {
-      try {
-        if (r.ok) {
-          setIsLoading(false);
-          navigate("/"); // Redirect to home page
-        }
-      } catch (error) {
-        console.error("Registration failed", error);
+    try {
+      const response = await fetch("/charities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          goals,
+          image,
+          mission_statement,
+          impact,
+          description,
+        }),
+      });
+
+      if (response.ok) {
+        setIsLoading(false);
+        // Navigate to a page informing the user about the approval process
+        navigate("/charity_pending");
+      } else {
+        throw new Error("Failed to create charity");
       }
-    });
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Registration failed", error);
+      setError("Registration failed. Please try again.");
+    }
   };
+
   return (
     <div className="charity-container">
       <form className="charity-form" onSubmit={handleSubmit}>
@@ -73,7 +77,7 @@ const NewCharityForm = () => {
               type="text"
               name="image"
               value={image}
-              placeholder="enter charity image url for profile"
+              placeholder="Enter charity image URL for profile"
               onChange={(e) => setImage(e.target.value)}
               required
             />
@@ -86,7 +90,7 @@ const NewCharityForm = () => {
               type="text"
               name="description"
               value={description}
-              placeholder="enter a small description about your charity"
+              placeholder="Enter a small description about your charity"
               onChange={(e) => setDescription(e.target.value)}
               required
             />
@@ -100,7 +104,7 @@ const NewCharityForm = () => {
               value={mission_statement}
               onChange={(e) => setMissionStatement(e.target.value)}
               required
-              placeholder="enter your charity mission statement"
+              placeholder="Enter your charity mission statement"
             />
           </div>
           <div className="label-and-input">
@@ -124,7 +128,7 @@ const NewCharityForm = () => {
               value={impact}
               onChange={(e) => setImpact(e.target.value)}
               required
-              placeholder="Our impact to the society will include.."
+              placeholder="Our impact on society will include.."
             />
           </div>
 

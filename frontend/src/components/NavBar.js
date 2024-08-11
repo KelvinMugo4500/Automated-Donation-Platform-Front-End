@@ -1,6 +1,4 @@
-// src/components/NavBar.js
 import React from "react";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
@@ -14,6 +12,7 @@ const NavBar = ({ user, setUser }) => {
   }
 
   const isAdmin = user && user.role === "admin";
+  const isCharity = user && user.role === "charity";
 
   return (
     <nav className="navbar">
@@ -36,12 +35,15 @@ const NavBar = ({ user, setUser }) => {
                   </Link>
                 </li>
               )}
+              {isCharity && (
+                <li className="navbar-item">
+                  <Link to="/charity_dashboard" className="navbar-link">
+                    Charity Dashboard
+                  </Link>
+                </li>
+              )}
               <li className="navbar-item">
-                <Link
-                  to="/logout"
-                  className="navbar-link"
-                  onClick={handleLogoutClick}
-                >
+                <Link to="/logout" className="navbar-link" onClick={handleLogoutClick}>
                   Logout
                 </Link>
               </li>
@@ -66,7 +68,7 @@ const NavBar = ({ user, setUser }) => {
             </Link>
           </li>
           <li className="navbar-item">
-            <Link to="/charity_list" className="navbar-link">
+            <Link to="/charities" className="navbar-link">
               Charity List
             </Link>
           </li>
