@@ -17,7 +17,7 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
-import CharityDashboard from "./components/CharityDashboard";
+import CharityDashboardAdmin from "./components/CharityDashboardAdmin";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -49,7 +49,7 @@ const App = () => {
       <Routes>
         {user ? ( // Routes accessible when user is logged in
           <>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage user={user} />} />
             <Route path="/charities" element={<CharityList />} />
             <Route
               path="/donate"
@@ -71,7 +71,7 @@ const App = () => {
             />
             <Route
               path="/charitydashboard"
-              element={<CharityDashboard user={user} />}
+              element={<CharityDashboardAdmin user={user} />}
             />
           </>
         ) : (

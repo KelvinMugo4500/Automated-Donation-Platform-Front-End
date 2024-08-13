@@ -18,11 +18,12 @@ const LandingPage = () => (
             className="charity-image"
           />
           <h1>Save the Children</h1>
-          <p>
+          <strong>
             Save the Children provides education and emergency aid to children
             in need around the world, including school-going girls in
             Sub-Saharan Africa.
-          </p>
+          </strong>
+          <br />
           <a href="/donate" className="donate-button">
             Donate
           </a>
@@ -34,11 +35,12 @@ const LandingPage = () => (
             className="charity-image"
           />
           <h1>Plan International</h1>
-          <p>
+          <strong>
             Plan International focuses on advancing children's rights and
             equality for girls, with programs in Sub-Saharan Africa to support
             education and health.
-          </p>
+          </strong>
+          <br />
           <a href="/donate" className="donate-button">
             Donate
           </a>
@@ -50,11 +52,12 @@ const LandingPage = () => (
             className="charity-image"
           />
           <h1>Girls Not Brides</h1>
-          <p>
+          <strong>
             Girls Not Brides is dedicated to ending child marriage and
             supporting girls' education in Sub-Saharan Africa through advocacy
             and direct support.
-          </p>
+          </strong>
+          <br />
           <a href="/donate" className="donate-button">
             Donate
           </a>
