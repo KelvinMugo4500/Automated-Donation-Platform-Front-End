@@ -1,92 +1,52 @@
-/* AdminDashboard.css */
-.grid-container{
-  margin-top: 5rem;
-}
-.admin-dashboard {
+.dashboard-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr 3fr;
+  margin-top: 3.2rem;
+  overflow: hidden;
 }
 
-.approved-charities {
-  border: 1px solid #ccc;
-  padding: 10px;
+.sidebar {
+  background-color: rgb(183, 187, 183);
+  border-right: 1px solid #ccc;
+  max-height: 100%;
+  border-radius: 10px;
+  flex: 0 0 200px; /* Fixed width for sidebar */
+  height: 100vh; /* Full height */
 }
 
-.pending-requests {
-  border: 1px solid #ccc;
-  padding: 10px;
-}
 
-.button-container {
-  display: flex;
-  gap: 10px;
-}
-
-.button-approve {
+.main-content {
+  background-color: rgb(183, 187, 183);
+  border-right: 1px solid #8b8888;
+  border-radius: 10px;
+  max-height: 100%;
   
-
-  background-color: lightgreen;
-  color: black;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
 }
-.button-donations {
-  background-color: lightgreen;
-  color: rgb(0, 0, 0);
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  width: 10rem;
-}
-.button-total-amount {
-  width: 10rem;
-  background-color: lightgreen;
-  color: black;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-}
-.button-delete {
-  width: 10rem;
-  background-color: rgb(236, 102, 102);
-  color: black;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-}
-
-.button-review {
-  background-color: #f0ad4e;
-  color: black;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-}
-
-.button-reject {
-  background-color: red;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-}
-.listElements {
+.listContainer{
   padding: 10px;
-  margin: 5px;
-  background-color: #d8d2d2;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  width: 13rem;
-  font-style:normal;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-color: black solid;
+  border: 5px;
 }
-.reviewp{
-  font-size: 10px
+
+.listElements {
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  border-color: black;
+  list-style: none;
+  width: 50%;
 }
 
 .listElements:hover {
-  background-color: #6f7069;
+  background-color: rgb(226, 235, 238);
+}
+.renderedContent {
+  border: 2px solid #706c6c; /* Add a visible border */
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Arrange items in 3 columns */
+  gap: 20px; /* Add some gap between items */
+  max-height: 400px; /* Set a maximum height for scroll */
+  overflow: auto; /* Allow content to be scrollable */
 }

@@ -2,12 +2,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  margin-right: 20rem;
   transform: translate(-50%, -50%);
   border-radius: 5px;
   padding: 20px;
   background-color: #757b88; /* Update with the desired background color */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 700px;
+  width: 900px;
   height: 400px;
   display: grid;
   grid-template-rows: auto 1fr auto; /* Divides the popup into three sections */
@@ -70,7 +71,7 @@
   transform: translate(-50%, -50%);
   border-radius: 5px;
   padding: 20px;
-  background-color: #fcf9f8; /* Update with the desired background color */
+  background-color: #757b88; /* Update with the desired background color */
   box-shadow: 0 0 10px rgba(247, 105, 105, 0.1);
   width: 500px;
   height: 300px;

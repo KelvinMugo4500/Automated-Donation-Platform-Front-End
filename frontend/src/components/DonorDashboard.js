@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./DonorDashboard.css";
+import CharityCard from "./CharityCard";
 
 const DonorDashboard = ({ user, setUser }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,7 +19,7 @@ const DonorDashboard = ({ user, setUser }) => {
         console.log("Fetched Charities:", charities);
         // Handle the fetched charities data as needed
       } catch (error) {
-        console.log(donations);
+        console.log(user.id);
         console.error("Error fetching charities:", error);
       }
     };
@@ -31,6 +32,7 @@ const DonorDashboard = ({ user, setUser }) => {
   const makeDonation = () => {
     // Logic to handle donation process, can trigger modal or redirect to donation page
     console.log("Make a donation");
+    console.log(user.id);
   };
 
   const handleSearch = (event) => {
@@ -42,7 +44,6 @@ const DonorDashboard = ({ user, setUser }) => {
   if (!user) {
     return <p>Loading user details...</p>;
   }
-
   return (
     <div className="dashboard-container">
       <div className="sidebar">
@@ -67,25 +68,13 @@ const DonorDashboard = ({ user, setUser }) => {
       </div>
       <div className="main-content">
         <h1>Welcome, {user.username}!</h1>
-        <p>Email: {user.email}</p>
-        <p>Role: {user.role}</p>
-        <h2>Donation History</h2>
-        <ul className="donation-history-list">
-          {/* {donations &&
-            donations.length > 0 &&
-            donations.map((donation) => (
-              <li key={donation.id}>
-                <strong>Amount:</strong> {donation.amount}
-                <br />
-                <strong>Date:</strong> {donation.date_time_created}
-                <br />
-                <strong>Charity:</strong> {donation.charity_name}
-              </li>
-            ))} */}
-        </ul>
-        <button className="donate-btn" onClick={makeDonation}>
-          Donate
-        </button>
+
+        <div className="renderedContent">
+          {charities.map((charity) => (
+            <CharityCard charity={charity} />
+          ))}
+          {!charities && <div>Loading...</div>}
+        </div>
       </div>
     </div>
   );

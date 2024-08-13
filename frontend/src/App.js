@@ -16,8 +16,12 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
+<<<<<<< HEAD
 import CharityDashboard from "./components/CharityDashboard";
 import CharityPending from "./components/CharityPending"; // Import CharityPending component
+=======
+import CharityDashboardAdmin from "./components/CharityDashboardAdmin";
+>>>>>>> charityDashboard
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -50,7 +54,7 @@ const App = () => {
         {/* Routes accessible when user is logged in */}
         {user ? (
           <>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage user={user} />} />
             <Route path="/charities" element={<CharityList />} />
             <Route
               path="/donate"
@@ -66,6 +70,7 @@ const App = () => {
                 />
               }
             />
+<<<<<<< HEAD
             {user.role === "admin" && (
               <Route
                 path="/admin_dashboard"
@@ -80,6 +85,16 @@ const App = () => {
             )}
             {/* Add the route for the CharityPending component */}
             <Route path="/charity_pending" element={<CharityPending />} />
+=======
+            <Route
+              path="/admin_dashboard"
+              element={<AdminDashboard user={user} />}
+            />
+            <Route
+              path="/charitydashboard"
+              element={<CharityDashboardAdmin user={user} />}
+            />
+>>>>>>> charityDashboard
           </>
         ) : (
           // Routes accessible when user is NOT logged in

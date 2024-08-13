@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./CharityDashboard.css";
+import "./CharityDashboardAdmin.css";
 import { Link } from "react-router-dom";
-const CharityDashboard = ({
+const CharityDashboardAdmin = ({
   user,
   charityId,
   approvedCharities,
@@ -266,15 +266,13 @@ const CharityDashboard = ({
               </div>
               {showDeleteConfirmation ? (
                 <div className="popup-delete">
+                  <p>enter your password to confirm</p>
                   <div className="close-icon" onClick={handleClickD}>
                     <Link to="/admin_dashboard" className="close-icon">
                       &#10005;
                     </Link>
                   </div>
-                  <p>
-                    enter your password to confirm the deletion process. This
-                    processes cannot be...
-                  </p>
+
                   <form onSubmit={confirmDelete}>
                     <input
                       type="password"
@@ -342,4 +340,4 @@ const CharityDashboard = ({
   );
 };
 
-export default CharityDashboard;
+export default CharityDashboardAdmin;

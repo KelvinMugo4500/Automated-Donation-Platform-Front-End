@@ -1,68 +1,54 @@
 .dashboard-container {
-  display: flex;
-  margin-top: 1rem;
-  }
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin-top: 3.2rem;
+  max-height: 100%;
   
-  .sidebar {
-  width: 20%;
-  background-color: #f4f4f4;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  justify-content: left;
-  
-  }
-  .listElements {
-    padding: 10px; 
-    
-    
-    background-color: #a39595;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 13rem;
-    text-align: left;    
-    font-style:normal;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
-  .listContainer{
-    list-style: none;
-    padding: 0;
-    margin-top: 0rem;
-    
-    
+}
 
-  }
-  .main-content {
-  flex: 1;
-  padding: 20px;
-  margin-top: 3rem;
-  }
+.sidebar {
+  background-color: #a2a7af; /* Dark color for sidebar */
+  color: #131212;
+  border-right: 1px solid #ccc;
+  max-height: 100%;
+  border-radius: 10px;
+  flex: 0 0 200px; /* Fixed width for sidebar */
+  height: 100vh; /* Full height */
+}
+
+
+.main-content {
+  background-color: #144ab6;
+  border-right: 1px solid #8b8888;
+  border-radius: 10px;
+  max-height: 100%;
   
-  .donate-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  margin-top: 10px;
-  cursor: pointer;
-  border: none;
-  width: 10rem;
-  }
-  
-  .search-bar {
-  width: 100%;
+}
+.listContainer{
   padding: 10px;
-  margin-top: 0px;
-  border: 1px solid #ddd;
+  cursor: pointer;
+  border-color: black solid;
+  border: 5px;
+}
+
+.listElements {
+  padding: 5px;
+  cursor: pointer;
   border-radius: 5px;
-  }
-  
-  .donation-history-list {
-  list-style-type: none;
-  padding: 0;
-  }
-  
-  .donation-history-list li {
-  margin-bottom: 5px;
-  }
+  border-color: black;
+  list-style: none;
+  width: 50%;
+}
+
+.listElements:hover {
+  background-color: rgb(226, 235, 238);
+}
+.renderedContent {
+  border: 2px solid #706c6c; /* Add a visible border */
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Arrange items in 3 columns */
+  gap: 20px; /* Add some gap between items */
+  max-height: 400px; /* Set a maximum height for scroll */
+  overflow: auto; /* Allow content to be scrollable */
+}
