@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
+// src/components/CharityList.js
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./CharityList.css";
 
 const CharityList = () => {
+  //fetch the approved charities
   const [charities, setCharities] = useState([]);
-
   useEffect(() => {
-    fetch("/charities")
-      .then(response => response.json())
-      .then(data => {
-        const approvedCharities = data.filter(charity => charity.status === "approved");
-        setCharities(approvedCharities);
-      })
-      .catch(error => console.error("Error fetching charities:", error));
+    const fetchData = async () => {
+      const response = await axios.get("/charities");
+      setCharities(response.data);
+    };
+
+    fetchData();
   }, []);
 
   return (
     <div className="charity-list">
-      <h2>Approved Charities</h2>
-      <div className="charity-cards">
+      <h1>Available Charities</h1>
+      <ul>
         {charities.map((charity) => (
-          <div key={charity.id} className="charity-card">
-            <img src={charity.image} alt={`${charity.name}`} className="charity-image" />
-            <h3 className="charity-name">{charity.name}</h3>
-            <p className="charity-description">{charity.description}</p>
-            <p className="charity-impact"><strong>Impact:</strong> {charity.impact}</p>
-            <p className="charity-goals"><strong>Goals:</strong> {charity.goals}</p>
-            <p className="charity-mission"><strong>Mission Statement:</strong> {charity.mission_statement}</p>
-          </div>
+          <li key={charity.id}>
+            <h2>{charity.name}</h2>
+            <img src={charity.image} alt={charity.name} />
+            <p>{charity.description}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

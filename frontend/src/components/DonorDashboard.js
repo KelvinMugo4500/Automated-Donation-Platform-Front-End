@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./DonorDashboard.css";
+import { Link } from "react-router-dom";
 import CharityCard from "./CharityCard";
 
 const DonorDashboard = ({ user, setUser }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [charities, setCharities] = useState([]);
-  const [totals, setTotals] = useState("");
   const donations = user.donations;
-
-  //fetch all charities to facilitate search
 
   useEffect(() => {
     const fetchCharities = async () => {
       try {
-        const response = await axios.get("/charities"); // use your actual API endpoint
+        const response = await axios.get("/charities");
         setCharities(response.data);
-        console.log("Fetched Charities:", charities);
-        // Handle the fetched charities data as needed
       } catch (error) {
-        console.log(user.id);
         console.error("Error fetching charities:", error);
       }
     };
@@ -29,21 +24,14 @@ const DonorDashboard = ({ user, setUser }) => {
     }
   }, [user]);
 
-  const makeDonation = () => {
-    // Logic to handle donation process, can trigger modal or redirect to donation page
-    console.log("Make a donation");
-    console.log(user.id);
-  };
-
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
-    // Logic to handle search implementation
-    console.log("Search for:", event.target.value);
   };
 
   if (!user) {
     return <p>Loading user details...</p>;
   }
+
   return (
     <div className="dashboard-container">
       <div className="sidebar">
@@ -70,10 +58,14 @@ const DonorDashboard = ({ user, setUser }) => {
         <h1>Welcome, {user.username}!</h1>
 
         <div className="renderedContent">
-          {charities.map((charity) => (
-            <CharityCard charity={charity} />
-          ))}
-          {!charities && <div>Loading...</div>}
+          {charities.length === 0 && <div>Loading...</div>}
+          {charities
+            .filter((charity) =>
+              charity.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((charity) => (
+              <CharityCard key={charity.id} charity={charity} />
+            ))}
         </div>
       </div>
     </div>

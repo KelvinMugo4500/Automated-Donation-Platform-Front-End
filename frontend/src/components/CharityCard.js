@@ -7,7 +7,7 @@ const CharityCard = ({ charity }) => (
     <img src={charity.image} alt={charity.name} />
     <h3>{charity.name}</h3>
     <strong>{charity.mission_statement}</strong>
-    <Link className="donate-link">Donate</Link>
+    <Link to={`/donate/${charity.id}`} className='donate-button'>Donate</Link>
   </div>
 );
 

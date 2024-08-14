@@ -16,19 +16,13 @@ import Footer from "./components/Footer";
 import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
-<<<<<<< HEAD
-import CharityDashboard from "./components/CharityDashboard";
-import CharityPending from "./components/CharityPending"; // Import CharityPending component
-=======
 import CharityDashboardAdmin from "./components/CharityDashboardAdmin";
->>>>>>> charityDashboard
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // auto-login
     fetch("/check_session")
       .then((r) => {
         if (r.ok) {
@@ -44,75 +38,40 @@ const App = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Waiting for login check
+    return <div>Loading...</div>;
   }
 
   return (
     <Router>
-      <NavBar user={user} setUser={setUser} /> {/* NavBar always visible */}
+      <NavBar user={user} setUser={setUser} />
       <Routes>
-        {/* Routes accessible when user is logged in */}
         {user ? (
           <>
             <Route path="/" element={<LandingPage user={user} />} />
             <Route path="/charities" element={<CharityList />} />
-            <Route
-              path="/donate"
-              element={<DonatePage charity="Selected Charity Name" />}
-            />
-            <Route
-              path="/donor_dashboard"
-              element={
-                <DonorDashboard
-                  user={user}
-                  donations={user.donations}
-                  setUser={setUser}
-                />
-              }
-            />
-<<<<<<< HEAD
-            {user.role === "admin" && (
-              <Route
-                path="/admin_dashboard"
-                element={<AdminDashboard user={user} />}
+            <Route path="/donate/:charityId" element={<DonatePage />} />
+            <Route path="/donor_dashboard" element={
+              <DonorDashboard
+                user={user}
+                donations={user.donations}
+                setUser={setUser}
               />
-            )}
-            {user.role === "charity" && (
-              <Route
-                path="/charity_dashboard"
-                element={<CharityDashboard user={user} />}
-              />
-            )}
-            {/* Add the route for the CharityPending component */}
-            <Route path="/charity_pending" element={<CharityPending />} />
-=======
-            <Route
-              path="/admin_dashboard"
-              element={<AdminDashboard user={user} />}
-            />
-            <Route
-              path="/charitydashboard"
-              element={<CharityDashboardAdmin user={user} />}
-            />
->>>>>>> charityDashboard
+            } />
+            <Route path="/admin_dashboard" element={<AdminDashboard user={user} />} />
+            <Route path="/charitydashboard" element={<CharityDashboardAdmin user={user} />} />
           </>
         ) : (
-          // Routes accessible when user is NOT logged in
           <>
             <Route path="/login" element={<LoginPage setUser={setUser} />} />
             <Route path="/register" element={<RegisterPage />} />
           </>
         )}
-        {/* Common routes accessible regardless of login status */}
-        <Route path="/" element={<LandingPage />} />{" "}
-        {/* Landing page is always accessible */}
-        <Route path="/charities" element={<CharityList />} />{" "}
-        {/* Charity list is always accessible */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/charities" element={<CharityList />} />
         <Route path="/create_charity" element={<CreateCharity />} />
-        {/* Redirect to landing page for unknown routes */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      <Footer /> {/* Footer always visible */}
+      <Footer />
     </Router>
   );
 };

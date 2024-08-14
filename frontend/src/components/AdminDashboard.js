@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 import "./CharityCard";
 import "./CharityDashboardAdmin.js";
@@ -17,12 +16,18 @@ const AdminDashboard = ({ user }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedListElement, setSelectedListElement] = useState(null);
 
-  const fetchCharities = async () => {
+  const refreshCharities = async () => {
     try {
       const response = await fetch("/charities");
-      const data = await response.json();
-      const approved = data.filter((charity) => charity.status === "approved");
-      const pending = data.filter((charity) => charity.status === "pending");
+      const charities = await response.json();
+
+      const approved = charities.filter(
+        (charity) => charity.status === "approved"
+      );
+      const pending = charities.filter(
+        (charity) => charity.status === "pending"
+      );
+
       setApprovedCharities(approved);
       setPendingRequests(pending);
     } catch (error) {
@@ -31,7 +36,7 @@ const AdminDashboard = ({ user }) => {
   };
 
   useEffect(() => {
-    fetchCharities();
+    refreshCharities();
   }, []);
 
   const handleListClick = (elementName) => {
@@ -85,22 +90,10 @@ const AdminDashboard = ({ user }) => {
     // Implement search logic here
   };
 
-<<<<<<< HEAD
-  const handleReject = (id) => {
-    postData(id, "reject");
-  };
-
-  return (
-    <div className="grid-container">
-      <div className="admin-dashboard">
-        <div className="approved-charities">
-          <h2>Approved Charities</h2>
-=======
   const handleReview = (item) => {
     // Handle review logic here
     // Depending on the item type, you can navigate or render something else
   };
->>>>>>> charityDashboard
 
   const handleReject = (item) => {
     // Handle reject logic here
