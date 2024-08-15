@@ -67,12 +67,22 @@ const CharityDashboard1 = ({ user }) => {
   };
 
   const handlePostStory = async () => {
+    if (!newStory.title || !newStory.content) {
+      console.error("Story title and content are required.");
+      return;
+    }
+
     try {
-      await axios.post(`/charities/${id}/stories`, newStory);
-      setNewStory({ title: '', content: '', image: '' });
-      fetchStories(); // Refresh the stories list
+      const response = await axios.post(`/charities/${id}/stories`, newStory);
+      if (response.status === 201) {
+        console.log("Story posted successfully:", response.data);
+        setNewStory({ title: '', content: '', image: '' });
+        fetchStories();
+      } else {
+        console.error("Failed to post story. Status code:", response.status);
+      }
     } catch (error) {
-      console.error("Error posting story:", error);
+      console.error("Error posting story:", error.response ? error.response.data : error.message);
     }
   };
 
@@ -81,7 +91,7 @@ const CharityDashboard1 = ({ user }) => {
       await axios.put(`/charities/${id}/beneficiaries/${editBeneficiary.id}`, updatedBeneficiary);
       setEditBeneficiary(null);
       setUpdatedBeneficiary({ name: '', description: '', inventory: [] });
-      fetchBeneficiaries(); // Refresh the beneficiaries list
+      fetchBeneficiaries();
     } catch (error) {
       console.error("Error updating beneficiary:", error);
     }
@@ -91,155 +101,181 @@ const CharityDashboard1 = ({ user }) => {
     try {
       await axios.post(`/charities/${id}/beneficiaries`, newBeneficiary);
       setNewBeneficiary({ name: '', description: '', inventory: [] });
-      fetchBeneficiaries(); // Refresh the beneficiaries list
+      fetchBeneficiaries();
     } catch (error) {
       console.error("Error adding beneficiary:", error);
     }
   };
 
   return (
-    <div className="charity_dashboard">
-      <h1>Charity Dashboard</h1>
-      <p>Welcome, {username}! Here you can manage your charity details, beneficiaries, and stories.</p>
+    <div className="uniqueCharityDashboard">
+      <aside className="uniqueSidebar">
+        <h2 className="uniqueSidebarTitle">Navigation</h2>
+        <ul className="uniqueSidebarList">
+          <li className="uniqueSidebarItem"><a href="#charity-details" className="uniqueSidebarLink">Charity Details</a></li>
+          <li className="uniqueSidebarItem"><a href="#donors" className="uniqueSidebarLink">Donors</a></li>
+          <li className="uniqueSidebarItem"><a href="#beneficiaries" className="uniqueSidebarLink">Beneficiaries</a></li>
+          <li className="uniqueSidebarItem"><a href="#stories" className="uniqueSidebarLink">Stories</a></li>
+        </ul>
+      </aside>
 
-      <button className="button" onClick={handleRegisterCharity}>
-        Register a New Charity
-      </button>
+      <div className="uniqueMainContent">
+        <h1 className="uniqueMainHeading">Charity Dashboard</h1>
+        <p className="uniqueMainWelcome">Welcome, {username}! Here you can manage your charity details, beneficiaries, and stories.</p>
 
-      {charityDetails && (
-        <div className="charity_details">
-          <h2>Charity Details</h2>
-          <p>Name: {charityDetails.name}</p>
-          <p>Description: {charityDetails.description}</p>
-          <p>Mission Statement: {charityDetails.mission_statement}</p>
-          <p>Goals: {charityDetails.goals}</p>
-          <p>Impact: {charityDetails.impact}</p>
-          <img src={charityDetails.image} alt={`${charityDetails.name} logo`} />
+        <button className="uniqueMainButton" onClick={handleRegisterCharity}>
+          Register a New Charity
+        </button>
+
+        <div id="charity-details" className="uniqueCharityDetails">
+          {charityDetails && (
+            <>
+              <h2 className="uniqueSectionHeading">Charity Details</h2>
+              <p className="uniqueSectionParagraph">Name: {charityDetails.name}</p>
+              <p className="uniqueSectionParagraph">Description: {charityDetails.description}</p>
+              <p className="uniqueSectionParagraph">Mission Statement: {charityDetails.mission_statement}</p>
+              <p className="uniqueSectionParagraph">Goals: {charityDetails.goals}</p>
+              <p className="uniqueSectionParagraph">Impact: {charityDetails.impact}</p>
+              <img className="uniqueCharityImage" src={charityDetails.image} alt={`${charityDetails.name} logo`} />
+            </>
+          )}
         </div>
-      )}
 
-      <div className="donors">
-        <h2>Donors</h2>
-        <h3>Non-Anonymous Donors</h3>
-        {donors.filter(donor => !donor.anonymous).length > 0 ? (
-          donors.filter(donor => !donor.anonymous).map(donor => (
-            <div key={donor.id}>
-              <p>Name: {donor.name}</p>
-              <p>Donation Amount: ${donor.amount}</p>
-            </div>
-          ))
-        ) : (
-          <p>No non-anonymous donors found.</p>
-        )}
-        <h3>Anonymous Donors</h3>
-        {donors.filter(donor => donor.anonymous).length > 0 ? (
-          donors.filter(donor => donor.anonymous).map(donor => (
-            <div key={donor.id}>
-              <p>Donation Amount: ${donor.amount}</p>
-            </div>
-          ))
-        ) : (
-          <p>No anonymous donors found.</p>
-        )}
-        <div className="total_amount">
-          <h3>Total Amount Donated by Anonymous Donors: ${anonymousDonations}</h3>
-          <h3>Total Amount Donated: ${totalDonations}</h3>
+        <div id="donors" className="uniqueDonors">
+          <h2 className="uniqueSectionHeading">Donors</h2>
+          {donors.length > 0 ? (
+            <>
+              <div className="uniqueDonorSection">
+                <h3 className="uniqueDonorSubHeading">Non-Anonymous Donors</h3>
+                {donors.filter(donor => !donor.anonymous).map(donor => (
+                  <div key={donor.id} className="uniqueDonorItem">
+                    <p className="uniqueSectionParagraph">Name: {donor.name}</p>
+                    <p className="uniqueSectionParagraph">Donation Amount: ${donor.amount}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="uniqueDonorSection">
+                <h3 className="uniqueDonorSubHeading">Anonymous Donors</h3>
+                {donors.filter(donor => donor.anonymous).map(donor => (
+                  <div key={donor.id} className="uniqueDonorItem">
+                    <p className="uniqueSectionParagraph">Donation Amount: ${donor.amount}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <p className="uniqueSectionParagraph">No donors found.</p>
+          )}
+          <div className="uniqueTotalAmount">
+            <p className="uniqueSectionParagraph">Total Donations: ${totalDonations}</p>
+            <p className="uniqueSectionParagraph">Anonymous Donations: ${anonymousDonations}</p>
+          </div>
         </div>
-      </div>
 
-      <div className="beneficiaries">
-        <h2>Beneficiaries</h2>
-        {beneficiaries.length > 0 ? (
-          beneficiaries.map((beneficiary) => (
-            <div key={beneficiary.id}>
-              <p>Name: {beneficiary.name}</p>
-              <p>Description: {beneficiary.description}</p>
-              <p>Inventory Sent: {beneficiary.inventory.join(', ')}</p>
-              <button onClick={() => setEditBeneficiary(beneficiary)}>Edit</button>
-            </div>
-          ))
-        ) : (
-          <p>No beneficiaries found.</p>
-        )}
-        <div className="add_beneficiary">
-          <h3>Add New Beneficiary</h3>
-          <input
-            type="text"
-            placeholder="Beneficiary Name"
-            value={newBeneficiary.name}
-            onChange={(e) => setNewBeneficiary({ ...newBeneficiary, name: e.target.value })}
-          />
-          <textarea
-            placeholder="Beneficiary Description"
-            value={newBeneficiary.description}
-            onChange={(e) => setNewBeneficiary({ ...newBeneficiary, description: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Inventory (comma separated)"
-            value={newBeneficiary.inventory.join(', ')}
-            onChange={(e) => setNewBeneficiary({ ...newBeneficiary, inventory: e.target.value.split(',').map(item => item.trim()) })}
-          />
-          <button onClick={handleAddBeneficiary}>Add Beneficiary</button>
-        </div>
-        {editBeneficiary && (
-          <div className="edit_beneficiary">
-            <h3>Edit Beneficiary</h3>
+        <div id="beneficiaries" className="uniqueBeneficiaries">
+          <h2 className="uniqueSectionHeading">Beneficiaries</h2>
+          {beneficiaries.length > 0 ? (
+            beneficiaries.map((beneficiary) => (
+              <div key={beneficiary.id} className="uniqueBeneficiaryItem">
+                <p className="uniqueSectionParagraph">Name: {beneficiary.name}</p>
+                <p className="uniqueSectionParagraph">Description: {beneficiary.description}</p>
+                <p className="uniqueSectionParagraph">Inventory Sent: {beneficiary.inventory.join(', ')}</p>
+                <button className="uniqueMainButton" onClick={() => setEditBeneficiary(beneficiary)}>Edit</button>
+              </div>
+            ))
+          ) : (
+            <p className="uniqueSectionParagraph">No beneficiaries found.</p>
+          )}
+          <div className="uniqueAddBeneficiary">
+            <h3 className="uniqueSubHeading">Add New Beneficiary</h3>
             <input
               type="text"
               placeholder="Beneficiary Name"
-              value={updatedBeneficiary.name}
-              onChange={(e) => setUpdatedBeneficiary({ ...updatedBeneficiary, name: e.target.value })}
+              value={newBeneficiary.name}
+              onChange={(e) => setNewBeneficiary({ ...newBeneficiary, name: e.target.value })}
+              className="uniqueInput"
             />
             <textarea
               placeholder="Beneficiary Description"
-              value={updatedBeneficiary.description}
-              onChange={(e) => setUpdatedBeneficiary({ ...updatedBeneficiary, description: e.target.value })}
+              value={newBeneficiary.description}
+              onChange={(e) => setNewBeneficiary({ ...newBeneficiary, description: e.target.value })}
+              className="uniqueTextarea"
             />
             <input
               type="text"
-              placeholder="Inventory (comma separated)"
-              value={updatedBeneficiary.inventory.join(', ')}
-              onChange={(e) => setUpdatedBeneficiary({ ...updatedBeneficiary, inventory: e.target.value.split(',').map(item => item.trim()) })}
+              placeholder="Inventory Items (comma-separated)"
+              value={newBeneficiary.inventory}
+              onChange={(e) => setNewBeneficiary({ ...newBeneficiary, inventory: e.target.value.split(',') })}
+              className="uniqueInput"
             />
-            <button onClick={handleUpdateBeneficiary}>Update Beneficiary</button>
+            <button className="uniqueMainButton" onClick={handleAddBeneficiary}>Add Beneficiary</button>
           </div>
-        )}
-      </div>
 
-      <div className="stories">
-        <h2>Beneficiary Stories</h2>
-        {stories.length > 0 ? (
-          stories.map((story) => (
-            <div key={story.id}>
-              <h3>{story.title}</h3>
-              <p>{story.content}</p>
-              {story.image && <img src={story.image} alt={story.title} />}
+          {editBeneficiary && (
+            <div className="uniqueEditBeneficiary">
+              <h3 className="uniqueSubHeading">Edit Beneficiary</h3>
+              <input
+                type="text"
+                placeholder="Beneficiary Name"
+                value={updatedBeneficiary.name}
+                onChange={(e) => setUpdatedBeneficiary({ ...updatedBeneficiary, name: e.target.value })}
+                className="uniqueInput"
+              />
+              <textarea
+                placeholder="Beneficiary Description"
+                value={updatedBeneficiary.description}
+                onChange={(e) => setUpdatedBeneficiary({ ...updatedBeneficiary, description: e.target.value })}
+                className="uniqueTextarea"
+              />
+              <input
+                type="text"
+                placeholder="Inventory Items (comma-separated)"
+                value={updatedBeneficiary.inventory}
+                onChange={(e) => setUpdatedBeneficiary({ ...updatedBeneficiary, inventory: e.target.value.split(',') })}
+                className="uniqueInput"
+              />
+              <button className="uniqueMainButton" onClick={handleUpdateBeneficiary}>Update Beneficiary</button>
             </div>
-          ))
-        ) : (
-          <p>No stories found.</p>
-        )}
-        <div className="add_story">
-          <h3>Add New Story</h3>
-          <input
-            type="text"
-            placeholder="Story Title"
-            value={newStory.title}
-            onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
-          />
-          <textarea
-            placeholder="Story Content"
-            value={newStory.content}
-            onChange={(e) => setNewStory({ ...newStory, content: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Image URL"
-            value={newStory.image}
-            onChange={(e) => setNewStory({ ...newStory, image: e.target.value })}
-          />
-          <button onClick={handlePostStory}>Post Story</button>
+          )}
+        </div>
+
+        <div id="stories" className="uniqueStories">
+          <h2 className="uniqueSectionHeading">Beneficiary Stories</h2>
+          {stories.length > 0 ? (
+            stories.map(story => (
+              <div key={story.id} className="uniqueStoryItem">
+                <h3 className="uniqueStoryTitle">{story.title}</h3>
+                <p className="uniqueSectionParagraph">{story.content}</p>
+                {story.image && <img src={story.image} alt={story.title} className="uniqueStoryImage" />}
+              </div>
+            ))
+          ) : (
+            <p className="uniqueSectionParagraph">No stories found.</p>
+          )}
+          <div className="uniquePostStory">
+            <h3 className="uniqueSubHeading">Post a New Story</h3>
+            <input
+              type="text"
+              placeholder="Story Title"
+              value={newStory.title}
+              onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
+              className="uniqueInput"
+            />
+            <textarea
+              placeholder="Story Content"
+              value={newStory.content}
+              onChange={(e) => setNewStory({ ...newStory, content: e.target.value })}
+              className="uniqueTextarea"
+            />
+            <input
+              type="text"
+              placeholder="Image URL"
+              value={newStory.image}
+              onChange={(e) => setNewStory({ ...newStory, image: e.target.value })}
+              className="uniqueInput"
+            />
+            <button className="uniqueMainButton" onClick={handlePostStory}>Post Story</button>
+          </div>
         </div>
       </div>
     </div>

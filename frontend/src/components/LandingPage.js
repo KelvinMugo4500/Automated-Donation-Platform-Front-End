@@ -1,129 +1,143 @@
-// src/components/LandingPage.js
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./LandingPage.css";
 
-const LandingPage = () => (
-  <div className="landing-page">
-    <header className="hero-section">
-      <h1>Welcome to the Automated Donation Platform</h1>
-    </header>
+const LandingPage = () => {
+  const [charities, setCharities] = useState([]);
+  const scrollRef = useRef(null);
 
-    <section className="charities-section">
-      <h2>Our Charities</h2>
-      <div className="charities-list">
-        <div className="charity-card">
-          <img
-            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
-            alt="Save the Children"
-            className="charity-image"
-          />
-          <h1>Save the Children</h1>
-          <strong>
-            Save the Children provides education and emergency aid to children
-            in need around the world, including school-going girls in
-            Sub-Saharan Africa.
-          </strong>
-          <br />
-          <a href="/donate" className="donate-button">
-            Donate
-          </a>
-        </div>
-        <div className="charity-card">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmB01XeoEwG6S3ekPfHxBoq2n0YsLRKCJslA&s"
-            alt="Plan International"
-            className="charity-image"
-          />
-          <h1>Plan International</h1>
-          <strong>
-            Plan International focuses on advancing children's rights and
-            equality for girls, with programs in Sub-Saharan Africa to support
-            education and health.
-          </strong>
-          <br />
-          <a href="/donate" className="donate-button">
-            Donate
-          </a>
-        </div>
-        <div className="charity-card">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnNoMNAJXsi-Z1GFofWGkl0OUu_mwdfIdUwQ&s"
-            alt="Girls Not Brides"
-            className="charity-image"
-          />
-          <h1>Girls Not Brides</h1>
-          <strong>
-            Girls Not Brides is dedicated to ending child marriage and
-            supporting girls' education in Sub-Saharan Africa through advocacy
-            and direct support.
-          </strong>
-          <br />
-          <a href="/donate" className="donate-button">
-            Donate
-          </a>
-        </div>
-      </div>
-    </section>
+  useEffect(() => {
+    // Fetch charities from your local server
+    fetch("/charities")
+      .then((response) => response.json())
+      .then((data) => setCharities(data))
+      .catch((error) => console.error("Error fetching charities:", error));
+  }, []);
 
-    <section className="about-section">
-      <h2>About Us</h2>
-      <p>
-        Our platform is dedicated to supporting school-going girls in
-        Sub-Saharan Africa by providing sanitary towels, clean water, and
-        sanitation facilities. We partner with trusted charities to ensure that
-        your donations make a real difference in the lives of these young girls,
-        helping them stay in school and achieve their dreams.
-      </p>
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({
+      left: -300, // Adjust this value based on the width of your cards
+      behavior: "smooth",
+    });
+  };
 
-      <div className="beneficiary-story">
-        <h3>Beneficiary Story</h3>
-        <div className="story-content">
-          <img
-            src="https://th.bing.com/th/id/OIP.OQ3aVAO3isrbg3-WfUo7zQAAAA?w=157&h=218&c=7&r=0&o=5&dpr=1.5&pid=1.7"
-            alt="Beneficiary"
-            className="story-image"
-          />
-          <div className="story-text">
-            <p>
-              <strong>Meet Amina</strong>, a 14-year-old student from Kenya.
-              Thanks to the donations from our generous supporters, Amina
-              received the sanitary towels she needed to attend school
-              regularly. Before the donations, she often missed school due to
-              lack of access to these essential supplies. Now, she can focus on
-              her studies and dreams of becoming a doctor one day. "I am so
-              grateful for the support. It has changed my life," says Amina.
-            </p>
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({
+      left: 300, // Adjust this value based on the width of your cards
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <div className="landingPage">
+      <header className="landingPage__hero">
+        <img 
+          src='https://th.bing.com/th/id/OIP.e9xjV68wpSJXcQKRzsEXNgHaE0?w=285&h=185&c=7&r=0&o=5&dpr=1.5&pid=1.7' 
+          alt='Hero' 
+          className='landingPage__heroImage' 
+        />
+        <div className="landingPage__heroOverlay">
+          <h1 className="landingPage__heroTitle">Help us provide sanitary towels, clean water, and sanitation facilities to school-going girls</h1>
+          <div className="landingPage__donationForm">
+            <div className="landingPage__formGroup">
+              <label htmlFor="donation-type" className="landingPage__formLabel">Donation Type</label>
+              <select id="donation-type" className="landingPage__formSelect">
+                <option value="once">Once</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+            <div className="landingPage__formGroup">
+              <label htmlFor="donation-amount" className="landingPage__formLabel">Amount</label>
+              <input type="number" id="donation-amount" placeholder="Enter amount" className="landingPage__formInput" />
+            </div>
+            <button type="submit" className="landingPage__formButton">Donate</button>
           </div>
         </div>
-      </div>
-    </section>
+      </header>
 
-    <section className="contact-section">
-      <h2>Contact Us</h2>
-      <form className="contact-form">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" name="name" required />
+      <section className="landingPage__charities">
+        <h2 className="landingPage__sectionTitle">Our Charities</h2>
+        <div className="landingPage__scrollContainer">
+          <button className="landingPage__arrow landingPage__arrow--left" onClick={scrollLeft}>
+            &#9664;
+          </button>
+          <div className="landingPage__charitiesList" ref={scrollRef}>
+            {charities.map((charity) => (
+              <div className="landingPage__charityCard" key={charity.id}>
+                <img
+                  src={charity.image}
+                  alt={charity.name}
+                  className="landingPage__charityImage"
+                />
+                <h3 className="landingPage__charityName">{charity.name}</h3>
+                <p className="landingPage__charityDescription">{charity.description}</p>
+                <a href={`/donate/${charity.id}`} className="landingPage__donateButton">
+                  Donate
+                </a>
+              </div>
+            ))}
+          </div>
+          <button className="landingPage__arrow landingPage__arrow--right" onClick={scrollRight}>
+            &#9654;
+          </button>
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" required />
+      </section>
+
+      <section className="landingPage__about">
+        <h2 className="landingPage__sectionTitle">About Us</h2>
+        <div className="landingPage__aboutContent">
+          <div className="landingPage__aboutText">
+            <p>In many Sub-Saharan countries, school-going girls miss out on education due to lack of sanitary towels and lack of proper sanitary facilities. Our platform aims to address this issue by enabling easy and regular donations to charities working on this cause.</p>
+          </div>
+          <div className="landingPage__aboutImage">
+            <img 
+              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_KZrd0akrx3gxDbL2Xcc9bEsJAO5Kb-btDQ&s' 
+              alt='About Us' 
+            />
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="message">Message</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
+        
+        <div className="landingPage__beneficiaryStory">
+          <h3 className="landingPage__storyTitle">Beneficiary Story</h3>
+          <div className="landingPage__storyContent">
+            <img 
+              src="https://th.bing.com/th/id/OIP.OQ3aVAO3isrbg3-WfUo7zQAAAA?w=157&h=218&c=7&r=0&o=5&dpr=1.5&pid=1.7"
+              alt="Beneficiary"
+              className="landingPage__storyImage"
+            />
+            <div className="landingPage__storyText">
+              <p><strong>Meet Amina</strong>, a 14-year-old student from Kenya. Thanks to the donations from our generous supporters, Amina received the sanitary towels she needed to attend school regularly. Before the donations, she often missed school due to lack of access to these essential supplies. Now, she can focus on her studies and dreams of becoming a doctor one day. "I am so grateful for the support. It has changed my life," says Amina.</p>
+            </div>
+          </div>
         </div>
-        <button type="submit">Send Message</button>
-      </form>
-      <div className="subscription-section">
-        <h3>Subscribe to Our Newsletter</h3>
-        <form className="subscription-form">
-          <input type="email" placeholder="Enter your email" required />
-          <button type="submit">Subscribe</button>
+      </section>
+
+      <section className="landingPage__contact">
+        <h2 className="landingPage__sectionTitle">Contact Us</h2>
+        <form className="landingPage__contactForm">
+          <div className="landingPage__formGroup">
+            <label htmlFor="name" className="landingPage__formLabel">Name</label>
+            <input type="text" id="name" name="name" required className="landingPage__formInput" />
+          </div>
+          <div className="landingPage__formGroup">
+            <label htmlFor="email" className="landingPage__formLabel">Email</label>
+            <input type="email" id="email" name="email" required className="landingPage__formInput" />
+          </div>
+          <div className="landingPage__formGroup">
+            <label htmlFor="message" className="landingPage__formLabel">Message</label>
+            <textarea id="message" name="message" rows="4" required className="landingPage__formTextarea"></textarea>
+          </div>
+          <button type="submit" className="landingPage__formButton">Send Message</button>
         </form>
-      </div>
-    </section>
-  </div>
-);
+        <div className="landingPage__subscription">
+          <h3 className="landingPage__subscriptionTitle">Subscribe to Our Newsletter</h3>
+          <form className="landingPage__subscriptionForm">
+            <input type="email" placeholder="Enter your email" required className="landingPage__subscriptionInput" />
+            <button type="submit" className="landingPage__subscriptionButton">Subscribe</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 export default LandingPage;

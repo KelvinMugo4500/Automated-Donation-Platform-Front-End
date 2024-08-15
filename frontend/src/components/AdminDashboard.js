@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
-import "./CharityCard";
-import "./CharityDashboardAdmin.js";
-import { Link } from "react-router-dom";
-import CharityDashboardAdmin from "./CharityDashboardAdmin.js";
-import ApprovedCharityCard from "./ApprovedCharityCard.js";
-import PendingRequestCard from "./PendingRequestCard.js";
+import ApprovedCharityCard from "./ApprovedCharityCard";
+import PendingRequestCard from "./PendingRequestCard";
 
 const AdminDashboard = ({ user }) => {
   const [charities, setCharities] = useState([]);
@@ -46,9 +42,10 @@ const AdminDashboard = ({ user }) => {
         setDisplayContent(
           <>
             <h2>Pending Requests</h2>
-            <div className="renderedContent">
+            <div className="content-grid">
               {pendingRequests.map((request) => (
                 <PendingRequestCard
+                  key={request.id}
                   request={request}
                   user={user}
                   approvedCharities={approvedCharities}
@@ -65,9 +62,10 @@ const AdminDashboard = ({ user }) => {
         setDisplayContent(
           <>
             <h2>Approved Requests</h2>
-            <div className="renderedContent">
+            <div className="content-grid">
               {approvedCharities.map((charity) => (
                 <ApprovedCharityCard
+                  key={charity.id}
                   refreshCharities={refreshCharities}
                   charity={charity}
                   user={user}
@@ -85,101 +83,60 @@ const AdminDashboard = ({ user }) => {
         setDisplayContent([]);
     }
   };
+
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
     // Implement search logic here
   };
 
-  const handleReview = (item) => {
-    // Handle review logic here
-    // Depending on the item type, you can navigate or render something else
-  };
-
-  const handleReject = (item) => {
-    // Handle reject logic here
-    // Depending on the item type, you can reject the request
-  };
   return (
-    <>
-      <div className="dashboard-container">
-        <div className="sidebar">
-          <ul className="listContainer">
-            <h2>User Options</h2>
-            <input
-              className="search-bar"
-              type="text"
-              placeholder="Search for a charity..."
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-            <li
-              onClick={() => handleListClick("Explore")}
-              className="listElements"
-            >
-              <strong>Explore</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("My Donation History")}
-              className="listElements"
-            >
-              <strong>My Donation History</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("Pending Requests")}
-              className="listElements"
-            >
-              <strong>Pending Requests</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("Approved Requests")}
-              className="listElements"
-            >
-              <strong>Approved Requests</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("Beneficiary Story")}
-              className="listElements"
-            >
-              <strong>Beneficiary Story</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("Join the welfare")}
-              className="listElements"
-            >
-              <strong>Join the welfare</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("To be Admin Requests")}
-              className="listElements"
-            >
-              <strong>To be Admin Requests</strong>
-            </li>{" "}
-            <li
-              onClick={() => handleListClick("Invite a friend")}
-              className="listElements"
-            >
-              <strong>Invite a friend</strong>
-            </li>
-            <li
-              onClick={() => handleListClick("Settings")}
-              className="listElements"
-            >
-              <strong>Settings</strong>
-            </li>
-          </ul>
-        </div>
-        <div className="main-content">
-          <h1>Welcome, {user.username}!</h1>
-
-          <br />
-
-          <div className="contentContainer">
-            {/* Selected content based on list item or search input */}
-            {displayContent}
-          </div>
+    <div className="admin-dashboard">
+      <div className="dashboard-sidebar">
+        <h2 className="sidebar-title">Admin Options</h2>
+        <input
+          className="sidebar-search-bar"
+          type="text"
+          placeholder="Search for a charity..."
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+        <ul className="sidebar-menu">
+          <li onClick={() => handleListClick("Explore")} className="sidebar-item">
+            Explore
+          </li>
+          <li onClick={() => handleListClick("My Donation History")} className="sidebar-item">
+            My Donation History
+          </li>
+          <li onClick={() => handleListClick("Pending Requests")} className="sidebar-item">
+            Pending Requests
+          </li>
+          <li onClick={() => handleListClick("Approved Requests")} className="sidebar-item">
+            Approved Requests
+          </li>
+          <li onClick={() => handleListClick("Beneficiary Story")} className="sidebar-item">
+            Beneficiary Story
+          </li>
+          <li onClick={() => handleListClick("Join the Welfare")} className="sidebar-item">
+            Join the Welfare
+          </li>
+          <li onClick={() => handleListClick("To be Admin Requests")} className="sidebar-item">
+            To be Admin Requests
+          </li>
+          <li onClick={() => handleListClick("Invite a Friend")} className="sidebar-item">
+            Invite a Friend
+          </li>
+          <li onClick={() => handleListClick("Settings")} className="sidebar-item">
+            Settings
+          </li>
+        </ul>
+      </div>
+      <div className="dashboard-main-content">
+        <h1 className="welcome-message">Welcome, {user.username}!</h1>
+        <div className="content-container">
+          {displayContent}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

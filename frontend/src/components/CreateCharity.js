@@ -9,6 +9,8 @@ const NewCharityForm = () => {
   const [impact, setImpact] = useState(""); 
   const [goals, setGoals] = useState("");
   const [mission_statement, setMissionStatement] = useState("");
+  const [paypal_account, setPaypalAccount] = useState("");
+  
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +33,7 @@ const NewCharityForm = () => {
           mission_statement,
           impact,
           description,
+          paypal_account,
         }),
       });
 
@@ -68,6 +71,19 @@ const NewCharityForm = () => {
               onChange={(e) => setName(e.target.value)}
               required
               placeholder="Enter your preferred name for your charity"
+            />
+          </div>
+          
+          <div className="label-and-input">
+            <label className="form-label">PayPal Email:</label>
+            <input
+              className="form-input"
+              type="text"
+              name="paypal_account"
+              value={paypal_account}
+              placeholder="Enter your paypal email"
+              onChange={(e) => setPaypalAccount(e.target.value)}
+              required
             />
           </div>
           <div className="label-and-input">

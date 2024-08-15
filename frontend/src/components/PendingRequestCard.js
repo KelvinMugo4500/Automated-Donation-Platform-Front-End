@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./PendingRequestCard.css";
 import CharityDashboardAdmin from "./CharityDashboardAdmin";
 
@@ -17,22 +16,29 @@ const PendingRequestCard = ({
 
   const handleReview = () => {
     setSelectedCharityId(request.id);
-    console.log(selectedCharityId);
     setShowModal(true);
   };
 
-  const handleReject = (item) => {
+  const handleReject = () => {
     // Handle reject logic here
   };
 
   return (
-    <div className="card">
-      <h1>{request.name}</h1>
-      <br />
-      <strong>{request.description}</strong>
-
-      <button onClick={handleReview}>Review</button>
-
+    <div className="pending-card">
+      <div className="card-header">
+        <h2 className="card-title">{request.name}</h2>
+      </div>
+      <div className="card-image">
+        <img src={request.image} alt={request.name} />
+      </div>
+      <div className="card-body">
+        <p className="card-description">{request.description}</p>
+      </div>
+      <div className="card-footer">
+        <button className="review-button" onClick={handleReview}>
+          Review
+        </button>
+      </div>
       {showModal && (
         <CharityDashboardAdmin
           charityId={selectedCharityId}

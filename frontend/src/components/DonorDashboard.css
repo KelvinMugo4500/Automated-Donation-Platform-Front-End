@@ -1,54 +1,86 @@
-.dashboard-container {
+/* Container for the DonorDashboard component */
+.donor-dashboard {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  margin-top: 3.2rem;
-  max-height: 100%;
-  
+  gap: 20px; /* Add space between sidebar and main content */
+  margin: 3.2rem auto; /* Center the container and add top margin */
+  max-height: 100vh;
 }
 
-.sidebar {
-  background-color: #a2a7af; /* Dark color for sidebar */
+/* Sidebar styling */
+.dashboard-sidebar {
+  background-color: #a2a7af; /* Sidebar color */
   color: #131212;
-  border-right: 1px solid #ccc;
-  max-height: 100%;
+  border-right: 2px solid #ccc; /* Subtle border for the sidebar */
   border-radius: 10px;
-  flex: 0 0 200px; /* Fixed width for sidebar */
+  padding: 20px;
   height: 100vh; /* Full height */
+  position: sticky;
+  top: 0;
 }
 
-
-.main-content {
-  background-color: #144ab6;
-  border-right: 1px solid #8b8888;
-  border-radius: 10px;
-  max-height: 100%;
-  
+/* Sidebar title styling */
+.sidebar-title {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
 }
-.listContainer{
+
+/* Search bar styling in the sidebar */
+.sidebar-search-bar {
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* Sidebar menu styling */
+.sidebar-menu {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+}
+
+/* Sidebar menu item styling */
+.sidebar-item {
   padding: 10px;
   cursor: pointer;
-  border-color: black solid;
-  border: 5px;
-}
-
-.listElements {
-  padding: 5px;
-  cursor: pointer;
   border-radius: 5px;
-  border-color: black;
-  list-style: none;
-  width: 50%;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
 }
 
-.listElements:hover {
-  background-color: rgb(226, 235, 238);
+.sidebar-item:hover {
+  background-color: #e2ebee; /* Light background on hover */
 }
-.renderedContent {
-  border: 2px solid #706c6c; /* Add a visible border */
+
+/* Main content styling */
+.dashboard-main-content {
+  background-color: #f5f7fa; /* Light background color */
   padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #8b8888; /* Subtle border */
+  max-height: 100vh;
+  overflow-y: auto; /* Allow scrolling */
+}
+
+/* Welcome message styling */
+.welcome-message {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Charity list container styling */
+.charity-list-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Arrange items in 3 columns */
-  gap: 20px; /* Add some gap between items */
-  max-height: 400px; /* Set a maximum height for scroll */
-  overflow: auto; /* Allow content to be scrollable */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 20px; /* Space between cards */
+  max-height: 100%; /* Allow full height usage */
+  overflow-y: auto; /* Scroll if needed */
+  padding: 20px;
 }

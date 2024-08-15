@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ApprovedCharityCard.css";
 import CharityDashboardAdmin from "./CharityDashboardAdmin";
-import { useState } from "react";
 
 const ApprovedCharityCard = ({
   charity,
@@ -18,24 +17,25 @@ const ApprovedCharityCard = ({
 
   const handleReview = () => {
     setSelectedCharityId(charity.id);
-    console.log(selectedCharityId);
     setShowModal(true);
-  };
-  const handleReject = (item) => {
-    // Handle reject logic here
-    // Depending on the item type, you can reject the request
   };
 
   return (
-    <div className="card">
-      <strong>{charity.name}</strong>
-      <img className="image1" src={charity.image} alt="Mission" />
-      <strong>{charity.mission_statement}</strong>
-
-      <button className="button1" onClick={handleReview}>
-        Review
-      </button>
-
+    <div className="approved-card">
+      <div className="card-header">
+        <h3 className="card-title">{charity.name}</h3>
+      </div>
+      <div className="card-image">
+        <img src={charity.image} alt={charity.name} />
+      </div>
+      <div className="card-body">
+        <p className="mission-statement">{charity.mission_statement}</p>
+      </div>
+      <div className="card-footer">
+        <button className="review-button" onClick={handleReview}>
+          Review
+        </button>
+      </div>
       {showModal && (
         <CharityDashboardAdmin
           charityId={selectedCharityId}

@@ -17,6 +17,7 @@ import CharityList from "./components/CharityList";
 import AdminDashboard from "./components/AdminDashboard";
 import CreateCharity from "./components/CreateCharity";
 import CharityDashboardAdmin from "./components/CharityDashboardAdmin";
+import CharityDashboard1 from "./components/CharityDashboard1";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -57,6 +58,12 @@ const App = () => {
                 setUser={setUser}
               />
             } />
+              {user.role === "charity" && (
+              <Route
+                path="/charity_dashboard"
+                element={<CharityDashboard1 user={user} />}
+              />
+            )}
             <Route path="/admin_dashboard" element={<AdminDashboard user={user} />} />
             <Route path="/charitydashboard" element={<CharityDashboardAdmin user={user} />} />
           </>

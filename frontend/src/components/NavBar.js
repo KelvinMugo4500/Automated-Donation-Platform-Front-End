@@ -18,7 +18,7 @@ const NavBar = ({ user, setUser }) => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          Automated Donation Platform
+          Life Changers
         </Link>
         <ul className="navbar-menu">
           <li className="navbar-item">
@@ -41,6 +41,15 @@ const NavBar = ({ user, setUser }) => {
                     Donor Dashboard
                   </Link>
                 </li>
+              )}
+              {isCharity && (
+                <>
+                  <li className="navbar-item">
+                    <Link to="/charity_dashboard" className="navbar-link">
+                      Charity Dashboard
+                    </Link>
+                  </li>
+                </>
               )}
               <li className="navbar-item">
                 <Link
@@ -74,6 +83,11 @@ const NavBar = ({ user, setUser }) => {
           <li className="navbar-item">
             <Link to="/charities" className="navbar-link">
               Charity List
+            </Link>
+          </li>
+          <li className="navbar-item">
+            <Link to="/donate" className="navbar-donate">
+              Donate
             </Link>
           </li>
         </ul>

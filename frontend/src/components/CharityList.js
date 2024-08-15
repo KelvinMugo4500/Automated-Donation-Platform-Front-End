@@ -1,10 +1,9 @@
-// src/components/CharityList.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CharityList.css";
 
 const CharityList = () => {
-  //fetch the approved charities
+  // Fetch the approved charities
   const [charities, setCharities] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +23,9 @@ const CharityList = () => {
             <h2>{charity.name}</h2>
             <img src={charity.image} alt={charity.name} />
             <p>{charity.description}</p>
+            <a href={`/donate/${charity.id}`} className="donate-button">
+              Donate
+            </a>
           </li>
         ))}
       </ul>
