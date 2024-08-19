@@ -58,7 +58,7 @@ const App = () => {
                 setUser={setUser}
               />
             } />
-              {user.role === "charity" && (
+            {user.role === "charity" && (
               <Route
                 path="/charity_dashboard"
                 element={<CharityDashboard1 user={user} />}
@@ -76,6 +76,8 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/charities" element={<CharityList />} />
         <Route path="/create_charity" element={<CreateCharity />} />
+        {/* Adding the route for DonatePage accessible by anyone */}
+        <Route path="/donate" element={<DonatePage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />

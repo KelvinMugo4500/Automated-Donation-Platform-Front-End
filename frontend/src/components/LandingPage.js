@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "./LandingPage.css";
 
 const LandingPage = () => {
@@ -36,20 +37,27 @@ const LandingPage = () => {
           className='landingPage__heroImage' 
         />
         <div className="landingPage__heroOverlay">
-          <h1 className="landingPage__heroTitle">Help us provide sanitary towels, clean water, and sanitation facilities to school-going girls</h1>
+          <h1 className="landingPage__heroTitle">
+            Help us provide sanitary towels, clean water, and sanitation facilities to school-going girls
+          </h1>
           <div className="landingPage__donationForm">
             <div className="landingPage__formGroup">
               <label htmlFor="donation-type" className="landingPage__formLabel">Donation Type</label>
-              <select id="donation-type" className="landingPage__formSelect">
-                <option value="once">Once</option>
-                <option value="monthly">Monthly</option>
-              </select>
+              <div className="landingPage__donationTypeButtons">
+                <button className="landingPage__donationTypeButton">Once</button>
+                <button className="landingPage__donationTypeButton">Monthly</button>
+              </div>
             </div>
             <div className="landingPage__formGroup">
               <label htmlFor="donation-amount" className="landingPage__formLabel">Amount</label>
-              <input type="number" id="donation-amount" placeholder="Enter amount" className="landingPage__formInput" />
+              <input 
+                type="number" 
+                id="donation-amount" 
+                placeholder="Enter amount" 
+                className="landingPage__formInput" 
+              />
             </div>
-            <button type="submit" className="landingPage__formButton">Donate</button>
+            <Link to="/donate" className="landingPage__formButton">Donate</Link>
           </div>
         </div>
       </header>
@@ -70,9 +78,9 @@ const LandingPage = () => {
                 />
                 <h3 className="landingPage__charityName">{charity.name}</h3>
                 <p className="landingPage__charityDescription">{charity.description}</p>
-                <a href={`/donate/${charity.id}`} className="landingPage__donateButton">
+                <Link to={`/donate/${charity.id}`} className="landingPage__donateButton">
                   Donate
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -86,7 +94,10 @@ const LandingPage = () => {
         <h2 className="landingPage__sectionTitle">About Us</h2>
         <div className="landingPage__aboutContent">
           <div className="landingPage__aboutText">
-            <p>In many Sub-Saharan countries, school-going girls miss out on education due to lack of sanitary towels and lack of proper sanitary facilities. Our platform aims to address this issue by enabling easy and regular donations to charities working on this cause.</p>
+            <p>
+              In many Sub-Saharan countries, school-going girls miss out on education due to lack of sanitary towels and proper sanitary facilities. 
+              Our platform aims to address this issue by enabling easy and regular donations to charities working on this cause.
+            </p>
           </div>
           <div className="landingPage__aboutImage">
             <img 
@@ -105,7 +116,12 @@ const LandingPage = () => {
               className="landingPage__storyImage"
             />
             <div className="landingPage__storyText">
-              <p><strong>Meet Amina</strong>, a 14-year-old student from Kenya. Thanks to the donations from our generous supporters, Amina received the sanitary towels she needed to attend school regularly. Before the donations, she often missed school due to lack of access to these essential supplies. Now, she can focus on her studies and dreams of becoming a doctor one day. "I am so grateful for the support. It has changed my life," says Amina.</p>
+              <p>
+                <strong>Meet Amina</strong>, a 14-year-old student from Kenya. Thanks to the donations from our generous supporters, Amina received the 
+                sanitary towels she needed to attend school regularly. Before the donations, she often missed school due to lack of access to these 
+                essential supplies. Now, she can focus on her studies and dreams of becoming a doctor one day. "I am so grateful for the support. 
+                It has changed my life," says Amina.
+              </p>
             </div>
           </div>
         </div>
